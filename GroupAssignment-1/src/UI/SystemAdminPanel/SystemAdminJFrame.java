@@ -68,7 +68,7 @@ public class SystemAdminJFrame extends javax.swing.JFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jButton2.setText("DepartmentHOD");
+        jButton2.setText("Department");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);

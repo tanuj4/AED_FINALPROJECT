@@ -14,7 +14,7 @@ public class College {
     ArrayList<Department> departmentList;
 
     public College() {
-        this.departmentList = departmentList;
+        this.departmentList = new ArrayList<Department>();
     }
 
     public ArrayList<Department> getDepartmentList() {

@@ -33,7 +33,7 @@ public class HodJPanel extends javax.swing.JPanel {
         this.dept = dept;
         this.userAccounts = userAccounts;
         
-       
+       displayDepartment();
       }
 
    
@@ -159,6 +159,14 @@ public class HodJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+     public void displayDepartment(){
+      deptComboBox.removeAllItems();
+        for(Department a: this.dept.getDepartmentDirectory().getDepartmentList()){
+           deptComboBox.addItem(a.getName());
+        }
+    }
+    
+                
     private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtnActionPerformed
         String name = fieldName.getText();
         String id =   fieldId.getText();
