@@ -8,6 +8,7 @@ import Department.Department;
 import UI.SystemAdminPanel.SystemAdminJFrame;
 import UserAccounts.UserAccounts;
 import javax.swing.JFrame;
+import Business.Business;
 
 /**
  *
@@ -20,7 +21,7 @@ public class SystemAdmin extends Role{
     }
     
     @Override
-    public JFrame createWorkArea(Department department, UserAccounts userAccounts){
-        return new SystemAdminJFrame(department, userAccounts);
+    public JFrame createWorkArea(Business business, UserAccounts userAccounts){
+        return new SystemAdminJFrame(business, userAccounts);
     }
 }

@@ -5,6 +5,7 @@
  */
 package UI.SystemAdminPanel;
 
+import Business.Business;
 import Department.Department;
 import UI.MainJFrame;
 import UserAccounts.UserAccounts;
@@ -18,18 +19,18 @@ public class SystemAdminJFrame extends javax.swing.JFrame {
     /**
      * Creates new form SystemAdminJFrame
      */
-    Department department;
+    Business business;
     UserAccounts userAccounts;
     
     public SystemAdminJFrame() {
         initComponents();
     }
     
-    public SystemAdminJFrame(Department department, UserAccounts userAccounts) {
+    public SystemAdminJFrame(Business business, UserAccounts userAccounts) {
         initComponents();
         
         this.setVisible(true);
-        this.department = department;
+        this.business = business;
         this.userAccounts = userAccounts;
     }
 
@@ -177,12 +178,12 @@ public class SystemAdminJFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
                 this.setVisible(false);
-        MainJFrame main = new MainJFrame(this.department,this.userAccounts);
+        MainJFrame main = new MainJFrame(this.business,this.userAccounts);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-         jSplitPane1.setRightComponent(new DepartmentJPanel(this.department,this.userAccounts));
+         jSplitPane1.setRightComponent(new DepartmentJPanel(this.business,this.userAccounts));
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -202,7 +203,7 @@ public class SystemAdminJFrame extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-         jSplitPane1.setRightComponent(new HodJPanel(this.department,this.userAccounts));
+         jSplitPane1.setRightComponent(new HodJPanel(this.business,this.userAccounts));
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**

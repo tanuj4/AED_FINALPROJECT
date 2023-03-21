@@ -4,6 +4,7 @@
  */
 package UserAccounts;
 
+import Business.Business;
 import Department.Department;
 import Role.SystemAdmin;
 import javax.swing.JFrame;
@@ -92,9 +93,9 @@ public class UserAccounts {
     }
     
     
-    public JFrame getWorkArea(String role, Department department, UserAccounts userAccounts){
+    public JFrame getWorkArea(String role, Business business, UserAccounts userAccounts){
         if(role.equals("System Admin")){
-            return new SystemAdmin().createWorkArea(department, userAccounts);
+            return new SystemAdmin().createWorkArea(business, userAccounts);
         }
         if(role.equals("Branch Manager")){
             //return new BranchManagerJFrame(business,userAccounts, branch);

@@ -5,6 +5,7 @@
  */
 package UI.SystemAdminPanel;
 
+import Business.Business;
 import Department.Department;
 import HODProfile.Hod;
 import UserAccounts.UserAccountDirectory;
@@ -20,7 +21,7 @@ public class StudentJPanel extends javax.swing.JPanel {
     /**
      * Creates new form StudentJPanel
      */
-    Department dept;
+    Business business;
     Hod hod;
     UserAccounts userAccounts;
     UserAccountDirectory userAccountDirectory;
@@ -29,10 +30,10 @@ public class StudentJPanel extends javax.swing.JPanel {
         initComponents();
     }
     
-    public StudentJPanel(Department dept, UserAccounts userAccounts) {
+    public StudentJPanel(Business business, UserAccounts userAccounts) {
         initComponents();
         
-        this.dept = dept;
+        this.business = business;
         this.userAccounts = userAccounts;
     }
 
@@ -176,15 +177,15 @@ public class StudentJPanel extends javax.swing.JPanel {
         String password = fieldPassword.getText();
         String deptName = String.valueOf(deptComboBox.getSelectedItem());
         
-        UserAccountDirectory userDir = this.dept.getUserAccountDirectory();
+        UserAccountDirectory userDir = this.business.getUserAccountDirectory();
         
         
         if(userDir.accountExists(username, password, name)){
             JOptionPane.showMessageDialog(null, "Account already exists!!!");
         }
         else {
-            UserAccounts user = this.dept.getUserAccountDirectory().createUser(username, password, name, deptName);
-            this.dept.getStudentDirectory().createStudent(id, name, deptName);
+            UserAccounts user = this.business.getUserAccountDirectory().createUser(username, password, name, deptName);
+            this.business.getStudentDirectory().createStudent(id, name, deptName);
             JOptionPane.showMessageDialog(null, "Account Created!!!");
           //  populate();
         }

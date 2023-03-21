@@ -4,7 +4,9 @@
  */
 package UI.SystemAdminPanel;
 
+import Business.Business;
 import Department.Department;
+import HODProfile.Hod;
 import UserAccounts.UserAccountDirectory;
 import UserAccounts.UserAccounts;
 import javax.swing.JOptionPane;
@@ -19,7 +21,7 @@ public class HodJPanel extends javax.swing.JPanel {
     /**
      * Creates new form HodJPanel
      */
-    Department dept;
+    Business business;
     UserAccounts userAccounts;
     UserAccountDirectory userAccountDirectory;
 
@@ -28,12 +30,12 @@ public class HodJPanel extends javax.swing.JPanel {
         initComponents();
     }
     
-     public HodJPanel(Department dept, UserAccounts userAccounts) {
+     public HodJPanel(Business business, UserAccounts userAccounts) {
          initComponents();
-        this.dept = dept;
+        this.business = business;
         this.userAccounts = userAccounts;
         
-       displayDepartment();
+        displayDepartment();
       }
 
    
@@ -63,29 +65,46 @@ public class HodJPanel extends javax.swing.JPanel {
         fieldUser = new javax.swing.JTextField();
         fieldPass = new javax.swing.JTextField();
         createBtn = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        HodTable = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(135, 219, 220));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
         jLabel1.setText("HOD");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel2.setText("Department Name:");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 83, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel3.setText("HOD Name:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 129, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel4.setText("HOD ID:");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 176, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel5.setText("HOD Experience:");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 227, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel6.setText("UserName;");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 266, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel7.setText("Password:");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 311, -1, -1));
+
+        add(deptComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 79, 147, -1));
+        add(fieldName, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 124, 147, -1));
+        add(fieldId, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 176, 147, -1));
+        add(fieldExp, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 222, 147, -1));
+        add(fieldUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 261, 147, -1));
+        add(fieldPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 306, 147, -1));
 
         createBtn.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         createBtn.setText("Create");
@@ -94,74 +113,35 @@ public class HodJPanel extends javax.swing.JPanel {
                 createBtnActionPerformed(evt);
             }
         });
+        add(createBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 359, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(310, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(259, 259, 259))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(createBtn)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(deptComboBox, 0, 147, Short.MAX_VALUE)
-                        .addComponent(fieldName)
-                        .addComponent(fieldId)
-                        .addComponent(fieldExp)
-                        .addComponent(fieldUser)
-                        .addComponent(fieldPass)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(deptComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(fieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(fieldId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fieldExp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(13, 13, 13)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(fieldUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(fieldPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addComponent(createBtn)
-                .addContainerGap(215, Short.MAX_VALUE))
-        );
+        HodTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Department Name", "HOD Name", "Hod ID", "HOD Experience", "Username", "Password"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(HodTable);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 670, 410));
     }// </editor-fold>//GEN-END:initComponents
 
      public void displayDepartment(){
       deptComboBox.removeAllItems();
-        for(Department a: this.dept.getDepartmentDirectory().getDepartmentList()){
+        for(Department a: this.business.getDepartmentDirectory().getDepartmentList()){
            deptComboBox.addItem(a.getName());
         }
     }
@@ -175,24 +155,27 @@ public class HodJPanel extends javax.swing.JPanel {
         String password = fieldPass.getText();
         String deptName = String.valueOf(deptComboBox.getSelectedItem());
         
-        UserAccountDirectory userDir = this.dept.getUserAccountDirectory();
+        UserAccountDirectory userDir = this.business.getUserAccountDirectory();
         
         
         if(userDir.accountExists(username, password, name)){
             JOptionPane.showMessageDialog(null, "Account already exists!!!");
         }
         else {
-            UserAccounts user = this.dept.getUserAccountDirectory().createUser(username, password, name, deptName);
-            this.dept.getHodDirectory().createHod(name, id, userAccounts.getDeptName(), Double.valueOf(exp));
+            UserAccounts user = this.business.getUserAccountDirectory().createUser(username, password, name, deptName);
+            this.business.getHodDirectory().createHod(name, id, userAccounts.getDeptName(), Double.valueOf(exp));
               JOptionPane.showMessageDialog(null, "Account Created!!!");
           //  populate();
         }
     }//GEN-LAST:event_createBtnActionPerformed
 
     
+    
+    
        
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable HodTable;
     private javax.swing.JButton createBtn;
     private javax.swing.JComboBox<String> deptComboBox;
     private javax.swing.JTextField fieldExp;
@@ -207,5 +190,6 @@ public class HodJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,7 @@
  */
 package UI.SystemAdminPanel;
 
+import Business.Business;
 import Department.College;
 import Department.Department;
 import UserAccounts.UserAccountDirectory;
@@ -21,7 +22,7 @@ public class DepartmentJPanel extends javax.swing.JPanel {
     /**
      * Creates new form DepartmentJPanel
      */
-    Department dept;
+    Business business;
     UserAccounts userAccounts;
     UserAccountDirectory userAccountDirectory;
     DefaultTableModel deptTableModel;
@@ -33,9 +34,9 @@ public class DepartmentJPanel extends javax.swing.JPanel {
     }
     
     
-    public DepartmentJPanel(Department dept, UserAccounts userAccounts) {
+    public DepartmentJPanel(Business business, UserAccounts userAccounts) {
          initComponents();
-        this.dept = dept;
+        this.business = business;
         this.userAccounts = userAccounts;
         this.deptTableModel = (DefaultTableModel) DeptjTable.getModel();
        
@@ -182,7 +183,7 @@ public class DepartmentJPanel extends javax.swing.JPanel {
 
     private void createDeptBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createDeptBtnActionPerformed
         // TODO add your handling code here:
-    UserAccountDirectory User = this.dept.getUserAccountDirectory();
+    UserAccountDirectory User = this.business.getUserAccountDirectory();
         
         String college = fieldCollege.getText();
         String depId = fieldid.getText();
@@ -199,11 +200,11 @@ public class DepartmentJPanel extends javax.swing.JPanel {
         }
         */
         
-        UserAccountDirectory userDir = this.dept.getUserAccountDirectory();
+        UserAccountDirectory userDir = this.business.getUserAccountDirectory();
         if(college.isBlank() || depId.isBlank() || depName.isBlank()){
             JOptionPane.showMessageDialog(null,"Please enter details in all fields");
         } else {
-            this.dept.getDepartmentDirectory().createDepartment(depId, depName);
+            this.business.getDepartmentDirectory().createDepartment(depId, depName);
             JOptionPane.showMessageDialog(null, "Department Created!!!");
         }
         

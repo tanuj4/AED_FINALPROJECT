@@ -4,6 +4,7 @@
  */
 package Role;
 
+import Business.Business;
 import Department.Department;
 import UserAccounts.UserAccounts;
 import javax.swing.JFrame;
@@ -13,5 +14,6 @@ import javax.swing.JFrame;
  * @author tanujkodali
  */
 public abstract class Role {
-    public abstract JFrame createWorkArea(Department department, UserAccounts userAccount);
+    public abstract JFrame createWorkArea(Business business, UserAccounts userAccount);
+    
 }

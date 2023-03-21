@@ -5,6 +5,7 @@
  */
 package UI;
 
+import Business.Business;
 import Department.Department;
 import UserAccounts.UserAccountDirectory;
 import UserAccounts.UserAccounts;
@@ -19,22 +20,22 @@ public class MainJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainJFrame
      */
-    Department dept;
+    Business business;
     UserAccounts userAccounts;
     UserAccountDirectory userAccountDirectory;
     public MainJFrame() {
         initComponents();
         
-        this.dept = Department.getInstance();
-        this.userAccountDirectory = dept.getUserAccountDirectory();
+        this.business = Business.getInstance();
+        this.userAccountDirectory = business.getUserAccountDirectory();
     }
     
-    public MainJFrame(Department dept, UserAccounts userAccounts) {
+    public MainJFrame(Business business, UserAccounts userAccounts) {
         initComponents();
         
         this.setVisible(true);
-        this.dept = dept;
-        this.userAccountDirectory = dept.getUserAccountDirectory();
+        this.business = business;
+        this.userAccountDirectory = business.getUserAccountDirectory();
     }
 
     /**
@@ -158,8 +159,8 @@ public class MainJFrame extends javax.swing.JFrame {
             System.out.println("2");
             if(this.userAccountDirectory.studentAccountExists(username, password, role)) {
                 //UserAccounts user = this.business.getBusinessUserAccountDirectory().checkUser(username, password,role);
-                UserAccounts user = this.dept.getUserAccountDirectory().checkStudentUser(username, password, role);
-                user.getWorkArea(role, dept, user);
+                UserAccounts user = this.business.getUserAccountDirectory().checkStudentUser(username, password, role);
+                user.getWorkArea(role, business, user);
                 this.setVisible(false);  
             } else{
                 JOptionPane.showMessageDialog(null, "Wrong Student Credentials!");
@@ -169,9 +170,9 @@ public class MainJFrame extends javax.swing.JFrame {
             System.out.println("3");
             if(this.userAccountDirectory.accountExists(username, password, role)) {
                 System.out.println("4");
-                UserAccounts user = this.dept.getUserAccountDirectory().checkUser(username, password, role);
+                UserAccounts user = this.business.getUserAccountDirectory().checkUser(username, password, role);
                 System.out.println("5");
-                user.getWorkArea(role, dept, user);
+                user.getWorkArea(role, business, user);
                 System.out.println("6");
                 this.setVisible(false);  
             }
