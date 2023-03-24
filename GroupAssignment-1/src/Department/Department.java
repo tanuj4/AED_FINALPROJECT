@@ -4,6 +4,7 @@
  */
 package Department;
 
+import CourseCatalog.CourseCatalog;
 import EmployeeProfile.EmployeeDirectory;
 import FacultyProfile.FacultyDirectory;
 import HODProfile.Hoddirectory;
@@ -18,10 +19,10 @@ import UserAccounts.UserAccounts;
 public class Department {
     String name;
     String deptId;
-    
+    CourseCatalog courseCatalog;
     
     public Department(){
-        
+        this.courseCatalog = new CourseCatalog();
     }
 
     public String getDeptId() {
@@ -40,6 +41,12 @@ public class Department {
         this.name = name;
     }
 
+    public CourseCatalog getCourseCatalog() {
+        return courseCatalog;
+    }
 
+    public void setCourseCatalog(CourseCatalog courseCatalog) {
+        this.courseCatalog = courseCatalog;
+    }
     
 }

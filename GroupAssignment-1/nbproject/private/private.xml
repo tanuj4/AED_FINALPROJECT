@@ -3,12 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/tanujkodali/Desktop/kodali_tanuj_002675123/GroupAssignment-1/src/UI/SystemAdminPanel/ProffesorJPanel.java</file>
-            <file>file:/Users/tanujkodali/Desktop/kodali_tanuj_002675123/GroupAssignment-1/src/UI/SystemAdminPanel/SystemAdminJFrame.java</file>
-            <file>file:/Users/tanujkodali/Desktop/kodali_tanuj_002675123/GroupAssignment-1/src/UI/SystemAdminPanel/StudentJPanel.java</file>
-            <file>file:/Users/tanujkodali/Desktop/kodali_tanuj_002675123/GroupAssignment-1/src/UI/MainJFrame.java</file>
-            <file>file:/Users/tanujkodali/Desktop/kodali_tanuj_002675123/GroupAssignment-1/src/UI/SystemAdminPanel/EmployeeJPanel.java</file>
-            <file>file:/Users/tanujkodali/Desktop/kodali_tanuj_002675123/GroupAssignment-1/src/UI/SystemAdminPanel/DepartmentJPanel.java</file>
+            <file>file:/C:/Users/91730/git-files/AED_FINALPROJECT/GroupAssignment-1/src/UserAccounts/UserAccountDirectory.java</file>
+            <file>file:/C:/Users/91730/git-files/AED_FINALPROJECT/GroupAssignment-1/src/Role/Role.java</file>
+            <file>file:/C:/Users/91730/git-files/AED_FINALPROJECT/GroupAssignment-1/src/UI/HeadOfDepartment/HeadOfDepartmentJFrame.java</file>
+            <file>file:/C:/Users/91730/git-files/AED_FINALPROJECT/GroupAssignment-1/src/Business/Business.java</file>
+            <file>file:/C:/Users/91730/git-files/AED_FINALPROJECT/GroupAssignment-1/src/UI/SystemAdminPanel/HodJPanel.java</file>
+            <file>file:/C:/Users/91730/git-files/AED_FINALPROJECT/GroupAssignment-1/src/Role/SystemAdmin.java</file>
+            <file>file:/C:/Users/91730/git-files/AED_FINALPROJECT/GroupAssignment-1/src/UI/MainJFrame.java</file>
+            <file>file:/C:/Users/91730/git-files/AED_FINALPROJECT/GroupAssignment-1/src/UserAccounts/UserAccounts.java</file>
+            <file>file:/C:/Users/91730/git-files/AED_FINALPROJECT/GroupAssignment-1/src/Role/HOD.java</file>
+            <file>file:/C:/Users/91730/git-files/AED_FINALPROJECT/GroupAssignment-1/src/UI/SystemAdminPanel/DepartmentJPanel.java</file>
         </group>
     </open-files>
 </project-private>

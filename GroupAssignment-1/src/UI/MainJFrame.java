@@ -167,7 +167,7 @@ public class MainJFrame extends javax.swing.JFrame {
             }
 
         } else if (role == "Department HOD" || role == "Faculty" || role == "Employee" || role == "System Admin"){
-            System.out.println("3");
+            System.out.println(role);
             if(this.userAccountDirectory.accountExists(username, password, role)) {
                 System.out.println("4");
                 UserAccounts user = this.business.getUserAccountDirectory().checkUser(username, password, role);

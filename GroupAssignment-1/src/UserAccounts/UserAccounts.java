@@ -7,6 +7,7 @@ package UserAccounts;
 import Business.Business;
 import Department.Department;
 import Role.SystemAdmin;
+import UI.HeadOfDepartment.HeadOfDepartmentJFrame;
 import javax.swing.JFrame;
 
 /**
@@ -26,6 +27,7 @@ public class UserAccounts {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.deptName = deptName;
     }
     
     public UserAccounts(String username, String password, String role, String deptName){
@@ -97,8 +99,8 @@ public class UserAccounts {
         if(role.equals("System Admin")){
             return new SystemAdmin().createWorkArea(business, userAccounts);
         }
-        if(role.equals("Branch Manager")){
-            //return new BranchManagerJFrame(business,userAccounts, branch);
+        if(role.equals("Department HOD")){
+            return new HeadOfDepartmentJFrame(business, userAccounts);
         }
         if(role.equals("Customer")){
             //return new CustomerJFrame(business,userAccounts,branch);
@@ -106,6 +108,7 @@ public class UserAccounts {
         if(role.equals("Librarian")){
             //return new LibrarianJFrame(business,userAccounts,branch);
         }
+        
         return null;
     }
 }

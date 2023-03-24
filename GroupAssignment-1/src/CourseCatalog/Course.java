@@ -10,24 +10,32 @@ package CourseCatalog;
  */
 public class Course {
     
-    
-    private static int count=0;
     String courseId;
     int creditPrice;
     String name;
     int credits;
+    private static int count=0;
+//    String department;
     
     public Course(){
-        
+        this.courseId = "Course-" + ++this.count;
     }
 
-    public Course(String courseId, int creditPrice, String name,int credits) {
-        this.courseId = courseId;
+    public Course(int creditPrice, String name,int credits, String department) {
+        this.courseId = "Course-" + ++this.count;
         this.creditPrice = creditPrice;
         this.name = name;
         this.credits = credits;
+//        this.department = department;
     }
 
+//    public String getDepartment() {
+//        return department;
+//    }
+//
+//    public void setDepartment(String department) {
+//        this.department = department;
+//    }
 
     public static int getCount() {
         return count;
@@ -69,11 +77,15 @@ public class Course {
         this.credits = credits;
     }
     
-    
     //METHODS
     public int getCoursePrice() {
         return creditPrice * credits;
 
     }
-            
+    
+    @Override
+    public String toString(){
+        return this.courseId;
+    }
+          
 }

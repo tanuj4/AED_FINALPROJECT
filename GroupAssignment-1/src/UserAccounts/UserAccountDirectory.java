@@ -57,11 +57,16 @@ public class UserAccountDirectory {
     public Boolean accountExists(String username, String password, String role){
         System.out.println("7");
         for(UserAccounts u: this.adminUserAccountDirectory){
+            System.out.println(u.getUsername());
+            System.out.println(u.getPassword());
+            System.out.println(u.getRole());
+            
             System.out.println("8");
             if(u.getUsername().equals(username) && u.getPassword().equals(password) && u.getRole().equals(role)){
-                System.out.println("9");   
+                System.out.println("9");
+                System.out.println(u.getRole());
                 return true;
-               }System.out.println("10");
+               }
         }
         return false;
     }
@@ -87,6 +92,7 @@ public class UserAccountDirectory {
     public UserAccounts checkStudentUser(String username, String password, String role){
         for(UserAccounts u: this.studentUserAccountDirectory){
             if(u.getUsername().equals(username) && u.getPassword().equals(password) && u.getRole().equals(role)){
+                System.out.println(u.getUsername());
                 return u;
             }
         }
