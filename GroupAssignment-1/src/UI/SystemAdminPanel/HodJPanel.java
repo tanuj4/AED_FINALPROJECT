@@ -159,10 +159,11 @@ public class HodJPanel extends javax.swing.JPanel {
         
         
         if(userDir.accountExists(username, password, name)){
+            
             JOptionPane.showMessageDialog(null, "Account already exists!!!");
         }
         else {
-            UserAccounts user = this.business.getUserAccountDirectory().createUser(username, password, name, deptName);
+            UserAccounts user = this.business.getUserAccountDirectory().createUser(username, password, "Department HOD", deptName);
             this.business.getHodDirectory().createHod(name, id, userAccounts.getDeptName(), Double.valueOf(exp));
               JOptionPane.showMessageDialog(null, "Account Created!!!");
           //  populate();

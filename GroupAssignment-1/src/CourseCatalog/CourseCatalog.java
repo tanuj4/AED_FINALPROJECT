@@ -12,8 +12,8 @@ import java.util.ArrayList;
  * @author tanujkodali
  */
 public class CourseCatalog {
-    Department department;
-    String lastupdated;
+//    Department department;
+//    String lastupdated;
     ArrayList<Course> courselist; 
     
     
@@ -21,26 +21,26 @@ public class CourseCatalog {
         courselist = new ArrayList();
     }
     
-    public CourseCatalog(Department d){
-        courselist = new ArrayList();
-        department = d;
-    }
+//    public CourseCatalog(Department d){
+//        courselist = new ArrayList();
+//        department = d;
+//    }
 
-    public Department getDepartment() {
-        return department;
-    }
+//    public Department getDepartment() {
+//        return department;
+//    }
+//
+//    public void setDepartment(Department department) {
+//        this.department = department;
+//    }
 
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public String getLastupdated() {
-        return lastupdated;
-    }
-
-    public void setLastupdated(String lastupdated) {
-        this.lastupdated = lastupdated;
-    }
+//    public String getLastupdated() {
+//        return lastupdated;
+//    }
+//
+//    public void setLastupdated(String lastupdated) {
+//        this.lastupdated = lastupdated;
+//    }
 
     public ArrayList<Course> getCourselist() {
         return courselist;
@@ -50,34 +50,34 @@ public class CourseCatalog {
         this.courselist = courselist;
     }
     
-    public Course createCourse(String id, String name, int credits, int creditPrice){
+    public Course createCourse(String name, int credits, int creditPrice, String department){
         Course course = new Course();
         
-        course.setCourseId(id);
         course.setCreditPrice(creditPrice);
         course.setName(name);
         course.setCredits(credits);
+//        course.setDepartment(department);
         
         this.courselist.add(course);
         return course;
     }
     
-    public Course findCourseByID(String id){
+    public Course findCourseByName(String name){
         for(Course c: this.courselist){
-            if(c.getCourseId().equals(id)){
+            if(c.getName().equals(name)){
                 return c;
             }
         }
         return null;
     }
     
-    public Course deleteCourse(String id){
+    public void deleteCourse(String id){
         for(Course c: this.courselist){
-            if(c.getCourseId().equalsIgnoreCase(id)){
+            if(c.getCourseId()==id){
                 this.courselist.remove(c);
                 break;
             }
         }
-        return null;
     }
+        
 }

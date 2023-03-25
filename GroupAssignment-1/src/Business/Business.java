@@ -4,6 +4,7 @@
  */
 package Business;
 
+import CourseCatalog.CourseCatalog;
 import Department.College;
 import Department.Department;
 import EmployeeProfile.EmployeeDirectory;
@@ -25,6 +26,7 @@ public class Business {
     StudentDirectory studentDirectory;
     EmployeeDirectory employeeDirectory;
     College departmentDirectory;
+    CourseCatalog courseCatalogDirectory;
     
     public Business(){
         this.userAccountDirectory = new UserAccountDirectory();
@@ -34,6 +36,7 @@ public class Business {
         this.studentDirectory = new StudentDirectory();
         this.employeeDirectory = new EmployeeDirectory();
         this.departmentDirectory = new College();
+        this.courseCatalogDirectory = new CourseCatalog();
         
         this.userAccountDirectory.createUser("admin", "admin", "System Admin",null);
     }
@@ -93,9 +96,15 @@ public class Business {
     public void setDepartmentDirectory(College departmentDirectory) {
         this.departmentDirectory = departmentDirectory;
     }
-    
-    
-    
+
+    public CourseCatalog getCourseCatalogDirectory() {
+        return courseCatalogDirectory;
+    }
+
+    public void setCourseCatalogDirectory(CourseCatalog courseCatalogDirectory) {
+        this.courseCatalogDirectory = courseCatalogDirectory;
+    }
+   
     public static Business getInstance(){
         return new Business();
     }
