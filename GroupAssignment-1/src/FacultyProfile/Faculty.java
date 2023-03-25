@@ -19,10 +19,6 @@ public class Faculty extends Person {
     UserAccountDirectory userAccountDirectory;
 
     public Faculty() {
-        this.departmentName = departmentName;
-        this.experience = experience;
-        this.userAccountDirectory = new UserAccountDirectory();
-        this.userAccounts = new UserAccounts();
     }
 
     public UserAccounts getUserAccounts() {

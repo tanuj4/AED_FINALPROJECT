@@ -57,6 +57,7 @@ public class CourseCatalog {
         course.setName(name);
         course.setCredits(credits);
         course.setDepartment(department);
+//        course.getSem().setSemName(semname);
         
         this.courselist.add(course);
         return course;

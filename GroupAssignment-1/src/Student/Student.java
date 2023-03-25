@@ -12,6 +12,7 @@ import Person.Person;
  */
 public class Student extends Person{
     String deptName;
+    Boolean employmentStatus;
     
     public Student(){
         super();
@@ -24,6 +25,16 @@ public class Student extends Person{
     public void setDeptName(String deptName) {
         this.deptName = deptName;
     }
+
+    public Boolean getEmploymentStatus() {
+        return employmentStatus;
+    }
+
+    public void setEmploymentStatus(Boolean employmentStatus) {
+        this.employmentStatus = employmentStatus;
+    }
+    
+    
     
     
 }

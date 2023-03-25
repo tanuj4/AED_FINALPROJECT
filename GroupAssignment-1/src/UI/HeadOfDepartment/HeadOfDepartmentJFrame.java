@@ -55,6 +55,7 @@ public class HeadOfDepartmentJFrame extends javax.swing.JFrame {
         manageCourseSchedule = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         hodName = new javax.swing.JLabel();
+        manageCourseSchedule1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -92,6 +93,14 @@ public class HeadOfDepartmentJFrame extends javax.swing.JFrame {
         hodName.setText("HODName");
         jPanel1.add(hodName, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, -1, -1));
 
+        manageCourseSchedule1.setText("Manage Course Offer");
+        manageCourseSchedule1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageCourseSchedule1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(manageCourseSchedule1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 170, 30));
+
         jSplitPane1.setLeftComponent(jPanel1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -127,6 +136,11 @@ public class HeadOfDepartmentJFrame extends javax.swing.JFrame {
         this.setVisible(false);
         MainJFrame main = new MainJFrame(this.business,this.userAccounts);
     }//GEN-LAST:event_logOutBtnActionPerformed
+
+    private void manageCourseSchedule1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageCourseSchedule1ActionPerformed
+        // TODO add your handling code here:
+        jSplitPane1.setRightComponent(new ManageCourseOfferJPanel(this.business,this.userAccounts));
+    }//GEN-LAST:event_manageCourseSchedule1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,5 +186,6 @@ public class HeadOfDepartmentJFrame extends javax.swing.JFrame {
     private javax.swing.JButton logOutBtn;
     private javax.swing.JButton manageCourseCatalog;
     private javax.swing.JButton manageCourseSchedule;
+    private javax.swing.JButton manageCourseSchedule1;
     // End of variables declaration//GEN-END:variables
 }

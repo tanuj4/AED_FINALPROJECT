@@ -35,6 +35,7 @@ public class EmployeeJPanel extends javax.swing.JPanel {
         
         this.business = business;
         this.userAccounts = userAccounts;
+        displayDepartment();
     }
 
     /**
@@ -189,6 +190,14 @@ public class EmployeeJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldPassActionPerformed
 
+    
+    public void displayDepartment(){
+      deptComboBox.removeAllItems();
+        for(Department a: this.business.getDepartmentDirectory().getDepartmentList()){
+           deptComboBox.addItem(a.getName());
+        }
+    }
+    
     private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtnActionPerformed
         // TODO add your handling code here:
          String id =   fieldId.getText();

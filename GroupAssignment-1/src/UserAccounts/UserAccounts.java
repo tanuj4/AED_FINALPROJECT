@@ -8,6 +8,7 @@ import Business.Business;
 import Department.Department;
 import Role.SystemAdmin;
 import UI.HeadOfDepartment.HeadOfDepartmentJFrame;
+import UI.Student.StudentJFrame;
 import javax.swing.JFrame;
 
 /**
@@ -102,11 +103,14 @@ public class UserAccounts {
         if(role.equals("Department HOD")){
             return new HeadOfDepartmentJFrame(business, userAccounts);
         }
-        if(role.equals("Customer")){
+        if(role.equals("Faculty")){
             //return new CustomerJFrame(business,userAccounts,branch);
         }
-        if(role.equals("Librarian")){
+        if(role.equals("Employee")){
             //return new LibrarianJFrame(business,userAccounts,branch);
+        }
+        if(role.equals("Student")){
+//            return new StudentJFrame(business,userAccounts);
         }
         
         return null;
