@@ -25,7 +25,7 @@ public class EmploymentDirectory {
         this.employmentList = employmentList;
     }
     
-    public Employment createJobs(String empId, String role, String quality, String deptName, String employer, String status){
+    public Employment createJobs(String empId, String role, String deptName, String employer, String status, Double jobPrice, String jobDesc, String backendStatus){
         Employment emp = new Employment();
         
         emp.setEmploymentId(empId);
@@ -33,13 +33,22 @@ public class EmploymentDirectory {
         emp.setRole(role);
         emp.setStatus(status);
         emp.setDeptName(deptName);
-        //emp.setEmpCourseOfferList(empCourseOfferList);
-        emp.setQuality(quality);
+        emp.setJobPrice(jobPrice);
+        emp.setJobDesc(jobDesc);
+        emp.setStudentId(null);
+        emp.setBackendStatus(backendStatus);
         
         this.employmentList.add(emp);
         return emp;
     }
     
-    
+    public Employment findJobByName(String name){
+        for(Employment e: this.employmentList){
+            if(e.getRole().equals(name)){
+                return e;
+            }
+        }
+        return null;
+    }
    
 }

@@ -7,10 +7,12 @@ package UI.SystemAdminPanel;
 
 import Business.Business;
 import Department.Department;
+import FacultyProfile.Faculty;
 import HODProfile.Hod;
 import UserAccounts.UserAccountDirectory;
 import UserAccounts.UserAccounts;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -25,6 +27,8 @@ public class ProffesorJPanel extends javax.swing.JPanel {
     Hod hod;
     UserAccounts userAccounts;
     UserAccountDirectory userAccountDirectory;
+    Faculty fac;
+    DefaultTableModel profTableModel;
     
     public ProffesorJPanel() {
         initComponents();
@@ -34,6 +38,7 @@ public class ProffesorJPanel extends javax.swing.JPanel {
          initComponents();
         this.business = business;
         this.userAccounts = userAccounts;
+        displayDepartment();
       }
 
     /**
@@ -150,6 +155,13 @@ public class ProffesorJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void displayDepartment(){
+      deptComboBox.removeAllItems();
+        for(Department a: this.business.getDepartmentDirectory().getDepartmentList()){
+           deptComboBox.addItem(a.getName());
+        }
+    }
+    
     private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtnActionPerformed
         // TODO add your handling code here:
     
@@ -162,8 +174,9 @@ public class ProffesorJPanel extends javax.swing.JPanel {
         
         UserAccountDirectory userDir = this.business.getUserAccountDirectory();
         
-        
-        if(userDir.accountExists(username, password, name)){
+        if( name.isBlank() || id.isBlank()||exp.isBlank()||username.isBlank()||password.isBlank()){
+            JOptionPane.showMessageDialog(null,"Please enter details in all fields");
+        }else if(userDir.accountExists(username, password, name)){
             JOptionPane.showMessageDialog(null, "Account already exists!!!");
         }
         else {
@@ -174,6 +187,7 @@ public class ProffesorJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_createBtnActionPerformed
 
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createBtn;
@@ -191,4 +205,5 @@ public class ProffesorJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables
+
 }

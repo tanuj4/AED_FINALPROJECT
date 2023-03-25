@@ -13,6 +13,7 @@ import HODProfile.Hoddirectory;
 import Student.StudentDirectory;
 import UserAccounts.UserAccountDirectory;
 import UserAccounts.UserAccounts;
+import Employment.EmploymentDirectory;
 
 /**
  *
@@ -27,6 +28,7 @@ public class Business {
     EmployeeDirectory employeeDirectory;
     College departmentDirectory;
     CourseCatalog courseCatalogDirectory;
+    EmploymentDirectory jobRequestDirectory;
     
     public Business(){
         this.userAccountDirectory = new UserAccountDirectory();
@@ -37,8 +39,17 @@ public class Business {
         this.employeeDirectory = new EmployeeDirectory();
         this.departmentDirectory = new College();
         this.courseCatalogDirectory = new CourseCatalog();
+        this.jobRequestDirectory = new EmploymentDirectory();
         
         this.userAccountDirectory.createUser("admin", "admin", "System Admin",null);
+    }
+
+    public EmploymentDirectory getJobRequestDirectory() {
+        return jobRequestDirectory;
+    }
+
+    public void setJobRequestDirectory(EmploymentDirectory jobRequestDirectory) {
+        this.jobRequestDirectory = jobRequestDirectory;
     }
 
     public UserAccounts getUserAccounts() {
