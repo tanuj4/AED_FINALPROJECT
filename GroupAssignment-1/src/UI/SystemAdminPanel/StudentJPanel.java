@@ -35,6 +35,8 @@ public class StudentJPanel extends javax.swing.JPanel {
         
         this.business = business;
         this.userAccounts = userAccounts;
+        
+        displayDepartment();
     }
 
     /**
@@ -167,6 +169,14 @@ public class StudentJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldIdActionPerformed
 
+    
+    public void displayDepartment(){
+      deptComboBox.removeAllItems();
+        for(Department a: this.business.getDepartmentDirectory().getDepartmentList()){
+           deptComboBox.addItem(a.getName());
+        }
+    }
+    
     private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtnActionPerformed
         // TODO add your handling code here:
         
@@ -185,7 +195,7 @@ public class StudentJPanel extends javax.swing.JPanel {
         }
         else {
             UserAccounts user = this.business.getUserAccountDirectory().createUser(username, password, name, deptName);
-            this.business.getStudentDirectory().createStudent(id, name, deptName);
+            this.business.getStudentDirectory().createStudent(id, name, deptName, false);
             JOptionPane.showMessageDialog(null, "Account Created!!!");
           //  populate();
         }

@@ -27,12 +27,13 @@ public class StudentDirectory {
     
     //METHODS
     
-    public Student createStudent(String id, String name, String deptName){
+    public Student createStudent(String id, String name, String deptName, Boolean empStatus){
         Student student = new Student();
         
         student.setId(id);
         student.setName(name);
         student.setDeptName(deptName);
+        student.setEmploymentStatus(empStatus);
         
         this.studentList.add(student);
         return student;

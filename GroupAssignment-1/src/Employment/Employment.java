@@ -15,9 +15,12 @@ public class Employment {
     String employmentId;
     String role;
     String employerName;
-    String quality;
     String deptName;
     String status;
+    String backendStatus;
+    Double jobPrice;
+    String jobDesc;
+    String studentId;
     
     ArrayList<CourseOffer> empCourseOfferList;
     
@@ -42,20 +45,31 @@ public class Employment {
         this.role = role;
     }
 
+    public String getBackendStatus() {
+        return backendStatus;
+    }
+
+    public void setBackendStatus(String backendStatus) {
+        this.backendStatus = backendStatus;
+    }
+    
+    
+
     public String getEmployerName() {
         return employerName;
     }
 
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
+
     public void setEmployerName(String employerName) {
         this.employerName = employerName;
-    }
-
-    public String getQuality() {
-        return quality;
-    }
-
-    public void setQuality(String quality) {
-        this.quality = quality;
     }
 
     public String getDeptName() {
@@ -81,6 +95,27 @@ public class Employment {
     public void setEmpCourseOfferList(ArrayList<CourseOffer> empCourseOfferList) {
         this.empCourseOfferList = empCourseOfferList;
     }
+
+    public String getJobDesc() {
+        return jobDesc;
+    }
+
+    public void setJobDesc(String jobDesc) {
+        this.jobDesc = jobDesc;
+    }
+
     
+    public Double getJobPrice() {
+        return jobPrice;
+    }
+
+    public void setJobPrice(Double jobPrice) {
+        this.jobPrice = jobPrice;
+    }
     
+    @Override
+    
+    public String toString(){
+        return String.valueOf(this.deptName);
+    }
 }

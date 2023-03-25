@@ -4,6 +4,9 @@
  */
 package CourseCatalog;
 
+import CourseSchedule.Semester;
+import FacultyProfile.Faculty;
+
 /**
  *
  * @author tanujkodali
@@ -16,9 +19,13 @@ public class Course {
     int credits;
     private static int count=0;
     String department;
+    Semester sem;
+    Faculty faculty;
     
     public Course(){
         this.courseId = "Course-" + ++this.count;
+        this.sem = new Semester();
+        this.faculty = new Faculty();
     }
 
     public Course(int creditPrice, String name,int credits, String department) {
@@ -27,6 +34,23 @@ public class Course {
         this.name = name;
         this.credits = credits;
         this.department = department;
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
+    }
+    
+
+    public Semester getSem() {
+        return sem;
+    }
+
+    public void setSem(Semester sem) {
+        this.sem = sem;
     }
 
     public String getDepartment() {
@@ -82,6 +106,7 @@ public class Course {
         return creditPrice * credits;
 
     }
+    
     
     @Override
     public String toString(){
