@@ -15,7 +15,7 @@ public class Course {
     String name;
     int credits;
     private static int count=0;
-//    String department;
+    String department;
     
     public Course(){
         this.courseId = "Course-" + ++this.count;
@@ -26,16 +26,16 @@ public class Course {
         this.creditPrice = creditPrice;
         this.name = name;
         this.credits = credits;
-//        this.department = department;
+        this.department = department;
     }
 
-//    public String getDepartment() {
-//        return department;
-//    }
-//
-//    public void setDepartment(String department) {
-//        this.department = department;
-//    }
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
 
     public static int getCount() {
         return count;
