@@ -56,7 +56,7 @@ public class CourseCatalog {
         course.setCreditPrice(creditPrice);
         course.setName(name);
         course.setCredits(credits);
-//        course.setDepartment(department);
+        course.setDepartment(department);
         
         this.courselist.add(course);
         return course;

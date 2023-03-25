@@ -6,7 +6,6 @@ package UI.HeadOfDepartment;
 
 import Business.Business;
 import CourseCatalog.Course;
-import CourseCatalog.CourseCatalog;
 import Department.Department;
 import UserAccounts.UserAccounts;
 import java.util.ArrayList;
@@ -185,7 +184,6 @@ public class ManageCourseCatalogJPanel extends javax.swing.JPanel {
         String price = coursePrice.getText();
         
         
-//        CourseCatalog courseCtlg = this.business.getCourseCatalogDirectory();
         ArrayList<Department> department = this.business.getDepartmentDirectory().getDepartmentList();
         
         for ( Department d : department ){
@@ -202,19 +200,6 @@ public class ManageCourseCatalogJPanel extends javax.swing.JPanel {
             }
             
         }
-        
-        
-        
-        
-//        if(courseCtlg.findCourseByName(name)!= null){
-//            
-//            JOptionPane.showMessageDialog(null, "Course already exists!!!");
-//        }
-//        else {
-//            courseCtlg.createCourse(name,Integer.valueOf(credits),Integer.valueOf(price),userAccounts.getDeptName());
-//            JOptionPane.showMessageDialog(null, "Course Created!!!");
-//        }
-//        
         displayCourseCatalog();
         
     }//GEN-LAST:event_addCourseActionPerformed
@@ -245,16 +230,31 @@ public class ManageCourseCatalogJPanel extends javax.swing.JPanel {
         }
         else{
             
-            Course c = this.business.getCourseCatalogDirectory().findCourseByName(courseName1.getText());
-            c.setCredits(Integer.valueOf(courseCredits1.getText()));
-            c.setCreditPrice(Integer.valueOf(coursePrice1.getText())); 
+            ArrayList<Department> department = this.business.getDepartmentDirectory().getDepartmentList();
+        
+        
+            for ( Department d : department ){
+                if (d.getName()==userAccounts.getDeptName()){
+                    Course c = d.getCourseCatalog().findCourseByName(courseName1.getText());
+                    
+                    c.setCredits(Integer.valueOf(courseCredits1.getText()));
+                    c.setCreditPrice(Integer.valueOf(coursePrice1.getText())); 
             
-            this.selectedCourse.setCredits(Integer.valueOf(courseCredits1.getText()));
-            this.selectedCourse.setCreditPrice(Integer.valueOf(coursePrice1.getText()));
-        }
+                    this.selectedCourse.setCredits(Integer.valueOf(courseCredits1.getText()));
+                    this.selectedCourse.setCreditPrice(Integer.valueOf(coursePrice1.getText()));
+                }
+            }
+//            if (d.getName()==userAccounts.getDeptName()){
+//            Course c = this.business.getDepartmentDirectory().getDepartmentList()getCourseCatalogDirectory().findCourseByName(courseName1.getText());
+//            c.setCredits(Integer.valueOf(courseCredits1.getText()));
+//            c.setCreditPrice(Integer.valueOf(coursePrice1.getText())); 
+//            
+//            this.selectedCourse.setCredits(Integer.valueOf(courseCredits1.getText()));
+//            this.selectedCourse.setCreditPrice(Integer.valueOf(coursePrice1.getText()));
+//        }
         
         displayCourseCatalog();
-        
+        }
     }//GEN-LAST:event_updateCourseActionPerformed
 
     private void deleteCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCourseActionPerformed
@@ -264,8 +264,17 @@ public class ManageCourseCatalogJPanel extends javax.swing.JPanel {
         if(selectedRow >= 0){
             //delete the object
             this.selectedCourse = (Course) courseCatalogTable.getValueAt(selectedRow,0);
-            this.business.getCourseCatalogDirectory().deleteCourse(selectedCourse.getCourseId());
+//            ArrayList<Department> department = this.business.getDepartmentDirectory();
+//          getDepartmentList().getCourseCatalogDirectory().deleteCourse(selectedCourse.getCourseId());
 
+            ArrayList<Department> dept = this.business.getDepartmentDirectory().getDepartmentList();
+            
+            for ( Department d : dept){
+                d.getCourseCatalog().deleteCourse(selectedCourse.getCourseId());
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "No row selected");
         }
         
         displayCourseCatalog();
@@ -274,7 +283,6 @@ public class ManageCourseCatalogJPanel extends javax.swing.JPanel {
     
     private void displayCourseCatalog() {
         
-//        CourseCatalog crsCatalog = this.business.getCourseCatalogDirectory();
         ArrayList<Department> department = this.business.getDepartmentDirectory().getDepartmentList();
         
         
@@ -284,7 +292,6 @@ public class ManageCourseCatalogJPanel extends javax.swing.JPanel {
                                viewTableModel.setRowCount(0);
             
                 for(Course c: d.getCourseCatalog().getCourselist()){
-//                if(c.getDepartment()==userAccounts.getDeptName()){
                     Object row[] = new Object[5];
                 
                     row[0]=c;
@@ -294,8 +301,7 @@ public class ManageCourseCatalogJPanel extends javax.swing.JPanel {
                     row[4]=c.getCoursePrice();
                 
                 
-                    viewTableModel.addRow(row);   
-//                }
+                    viewTableModel.addRow(row); 
                 } 
             }
             else
@@ -305,41 +311,7 @@ public class ManageCourseCatalogJPanel extends javax.swing.JPanel {
         }
     }
     }
-//                if(d.getCourseCatalog().findCourseByName(name)!= null){
-//            
-//                    JOptionPane.showMessageDialog(null, "Course already exists!!!");
-//                }
-//            else {
-//                d.getCourseCatalog().createCourse(name,Integer.valueOf(credits),Integer.valueOf(price),userAccounts.getDeptName());
-//                JOptionPane.showMessageDialog(null, "Course Created!!!");
-//            }
-//            }
-//            
-//        }
-//        if(crsCatalog.getCourselist().size()>0){
-//            viewTableModel.setRowCount(0);
-//            
-//            for(Course c: crsCatalog.getCourselist()){
-////                if(c.getDepartment()==userAccounts.getDeptName()){
-//                    Object row[] = new Object[5];
-//                
-//                    row[0]=c;
-//                    row[1]=c.getName();
-//                    row[2]=c.getCredits();
-//                    row[3]=c.getCreditPrice();
-//                    row[4]=c.getCoursePrice();
-//                
-//                
-//                    viewTableModel.addRow(row);   
-////                }
-//            }        
-//        }
-//        else
-//        {
-//            System.out.println("Empty List");   
-//        }
-//        
-//    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addCourse;
