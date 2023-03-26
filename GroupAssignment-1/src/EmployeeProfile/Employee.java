@@ -12,13 +12,31 @@ import Person.Person;
  */
 public class Employee extends Person{
     String deptName;
-    int EmpId;
+    String EmpId;
+    String Age;
     String jobName;
     String jobDesc;
     int hourlyPrice;
+    Double experience;
        
     public Employee(){
         
+    }
+
+    public Double getExperience() {
+        return experience;
+    }
+
+    public void setExperience(Double experience) {
+        this.experience = experience;
+    }
+
+    public String getAge() {
+        return Age;
+    }
+
+    public void setAge(String Age) {
+        this.Age = Age;
     }
 
     public String getDeptName() {
@@ -29,11 +47,11 @@ public class Employee extends Person{
         this.deptName = deptName;
     }
 
-    public int getEmpId() {
+    public String getEmpId() {
         return EmpId;
     }
 
-    public void setEmpId(int EmpId) {
+    public void setEmpId(String EmpId) {
         this.EmpId = EmpId;
     }
 
@@ -60,6 +78,11 @@ public class Employee extends Person{
     public void setHourlyPrice(int hourlyPrice) {
         this.hourlyPrice = hourlyPrice;
     }
-    
-    
+
+     
+    @Override
+    public String toString(){
+        return this.EmpId;
+    }
+     
 }

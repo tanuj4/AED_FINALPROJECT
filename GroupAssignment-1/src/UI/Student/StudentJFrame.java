@@ -35,7 +35,7 @@ public class StudentJFrame extends javax.swing.JFrame {
         this.userAccounts = userAccounts;
         this.dept = dept;
         
-        studentLabel.setText(userAccounts.getAccountId());
+        studentLabel.setText(userAccounts.getStudentId());
     }
 
     /**
@@ -122,7 +122,7 @@ public class StudentJFrame extends javax.swing.JFrame {
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        MainJFrame main = new MainJFrame(this.business,this.userAccounts);
+        MainJFrame main = new MainJFrame(this.business,this.userAccounts, this.dept);
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void registerClassBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerClassBtnActionPerformed

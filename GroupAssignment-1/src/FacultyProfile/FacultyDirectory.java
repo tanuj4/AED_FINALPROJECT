@@ -4,6 +4,7 @@
  */
 package FacultyProfile;
 
+import Department.Department;
 import Employment.Employment;
 import java.util.ArrayList;
 
@@ -29,13 +30,21 @@ public class FacultyDirectory {
      Faculty fac = new Faculty();
         
     fac.setName(name);
-    fac.setId(departmentName);
+    fac.setId(id);
     fac.setDepartmentName(departmentName);
     fac.setExperience(experience);
         
         this.facultyList.add(fac);
         return fac;
     }
+     public void deleteFaculty(String id){
+        for(Faculty fac : this.facultyList){
+            if(fac.getId()==id){
+                this.facultyList.remove(fac);
+                break;
+            }
+        }
     
+    }
        
 }

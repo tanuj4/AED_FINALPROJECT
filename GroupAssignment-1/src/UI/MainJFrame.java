@@ -22,6 +22,7 @@ public class MainJFrame extends javax.swing.JFrame {
      */
     Business business;
     UserAccounts userAccounts;
+    Department dept;
     UserAccountDirectory userAccountDirectory;
     public MainJFrame() {
         initComponents();
@@ -30,11 +31,12 @@ public class MainJFrame extends javax.swing.JFrame {
         this.userAccountDirectory = business.getUserAccountDirectory();
     }
     
-    public MainJFrame(Business business, UserAccounts userAccounts) {
+    public MainJFrame(Business business, UserAccounts userAccounts,Department dept) {
         initComponents();
         
         this.setVisible(true);
         this.business = business;
+        this.dept = dept;
         this.userAccountDirectory = business.getUserAccountDirectory();
     }
 
@@ -66,7 +68,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabel2.setText("Password:");
 
-        RoleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "System Admin", "Department HOD", "Faculty", "Employee", "Student" }));
+        RoleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "System Admin", "Department HOD", "Faculty", "Employer", "Student" }));
         RoleComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RoleComboBoxActionPerformed(evt);
@@ -152,34 +154,14 @@ public class MainJFrame extends javax.swing.JFrame {
         String username = fieldUsername.getText();
         String password = fieldPassword.getText();
         String role = (String) RoleComboBox.getSelectedItem();
-        
-        System.out.println("1");
-        if(role == "Student"){
-            
-            System.out.println("2");
-            if(this.userAccountDirectory.studentAccountExists(username, password, role)) {
-                //UserAccounts user = this.business.getBusinessUserAccountDirectory().checkUser(username, password,role);
-                UserAccounts user = this.business.getUserAccountDirectory().checkStudentUser(username, password, role);
-                user.getWorkArea(role, business, user);
+
+            if(this.userAccountDirectory.accountExists(username, password, role)) {
+                UserAccounts user = this.business.getUserAccountDirectory().checkUser(username, password, role);
+                user.getWorkArea(role, business, user, dept);
                 this.setVisible(false);  
             } else{
-                JOptionPane.showMessageDialog(null, "Wrong Student Credentials!");
-            }
-
-        } else if (role == "Department HOD" || role == "Faculty" || role == "Employee" || role == "System Admin"){
-            System.out.println(role);
-            if(this.userAccountDirectory.accountExists(username, password, role)) {
-                System.out.println("4");
-                UserAccounts user = this.business.getUserAccountDirectory().checkUser(username, password, role);
-                System.out.println("5");
-                user.getWorkArea(role, business, user);
-                System.out.println("6");
-                this.setVisible(false);  
-            }
-        } else{
                 JOptionPane.showMessageDialog(null, "Wrong Credentials!");
             }
-        
     }//GEN-LAST:event_loginBtnActionPerformed
 
     /**

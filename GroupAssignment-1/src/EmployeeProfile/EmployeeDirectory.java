@@ -25,5 +25,15 @@ public class EmployeeDirectory {
         this.employeeList = employeeList;
     }
     
-    
+    public Employee createEmployee(String name, String id, Double exp, String deptname){
+        Employee emp = new Employee();
+        
+        emp.setName(name);
+        emp.setEmpId(id);
+        emp.setDeptName(deptname);
+        emp.setExperience(exp);
+        
+        this.employeeList.add(emp);
+        return emp;
+    }
 }

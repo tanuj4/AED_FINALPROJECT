@@ -5,6 +5,7 @@
 package UI.HeadOfDepartment;
 
 import Business.Business;
+import Department.Department;
 import UI.MainJFrame;
 import UI.SystemAdminPanel.DepartmentJPanel;
 import UserAccounts.UserAccounts;
@@ -21,23 +22,20 @@ public class HeadOfDepartmentJFrame extends javax.swing.JFrame {
     
     Business business;
     UserAccounts userAccounts;
+    Department dept;
     
     public HeadOfDepartmentJFrame() {
         initComponents();
     }
 
-    public HeadOfDepartmentJFrame(Business business, UserAccounts userAccounts) {
+    public HeadOfDepartmentJFrame(Business business, UserAccounts userAccounts,Department dept) {
         initComponents();
         this.setVisible(true);
         this.business = business;
         this.userAccounts = userAccounts;
-        
+        this.dept = dept;
         hodName.setText(userAccounts.getDeptName());
     }
-    
-    
-        
-        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -123,23 +121,23 @@ public class HeadOfDepartmentJFrame extends javax.swing.JFrame {
 
     private void manageCourseScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageCourseScheduleActionPerformed
         // TODO add your handling code here:
-        jSplitPane1.setRightComponent(new ManageCourseScheduleJPanel(this.business,this.userAccounts));
+        jSplitPane1.setRightComponent(new ManageCourseScheduleJPanel(this.business,this.userAccounts, this.dept));
     }//GEN-LAST:event_manageCourseScheduleActionPerformed
 
     private void manageCourseCatalogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageCourseCatalogActionPerformed
         // TODO add your handling code here:
-        jSplitPane1.setRightComponent(new ManageCourseCatalogJPanel(this.business,this.userAccounts));
+        jSplitPane1.setRightComponent(new ManageCourseCatalogJPanel(this.business,this.userAccounts, this.dept));
     }//GEN-LAST:event_manageCourseCatalogActionPerformed
 
     private void logOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutBtnActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        MainJFrame main = new MainJFrame(this.business,this.userAccounts);
+        MainJFrame main = new MainJFrame(this.business,this.userAccounts, this.dept);
     }//GEN-LAST:event_logOutBtnActionPerformed
 
     private void manageCourseSchedule1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageCourseSchedule1ActionPerformed
         // TODO add your handling code here:
-        jSplitPane1.setRightComponent(new ManageCourseOfferJPanel(this.business,this.userAccounts));
+        jSplitPane1.setRightComponent(new ManageCourseOfferJPanel(this.business,this.userAccounts, this.dept));
     }//GEN-LAST:event_manageCourseSchedule1ActionPerformed
 
     /**

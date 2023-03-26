@@ -124,7 +124,7 @@
                 <StringItem index="0" value="System Admin"/>
                 <StringItem index="1" value="Department HOD"/>
                 <StringItem index="2" value="Faculty"/>
-                <StringItem index="3" value="Employee"/>
+                <StringItem index="3" value="Employer"/>
                 <StringItem index="4" value="Student"/>
               </StringArray>
             </Property>

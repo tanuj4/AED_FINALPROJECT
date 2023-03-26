@@ -5,6 +5,8 @@
 package Employment;
 
 import CourseSchedule.CourseOffer;
+import Student.Student;
+import StudentJobQueue.StudentJob;
 import java.util.ArrayList;
 
 /**
@@ -16,17 +18,20 @@ public class Employment {
     String role;
     String employerName;
     String deptName;
-    String status;
-    String backendStatus;
+    Boolean status;
+    String studentStatus;
     Double jobPrice;
     String jobDesc;
     String studentId;
+    StudentJob studentJobs;
+    String jobPosition;
     
     ArrayList<CourseOffer> empCourseOfferList;
     
     
     public Employment(){
         this.empCourseOfferList = new ArrayList<CourseOffer>();
+        this.studentJobs = new StudentJob();
     }
 
     public String getEmploymentId() {
@@ -45,14 +50,22 @@ public class Employment {
         this.role = role;
     }
 
-    public String getBackendStatus() {
-        return backendStatus;
+    public String getStudentStatus() {
+        return studentStatus;
     }
 
-    public void setBackendStatus(String backendStatus) {
-        this.backendStatus = backendStatus;
+    public void setStudentStatus(String studentStatus) {
+        this.studentStatus = studentStatus;
     }
-    
+
+    public StudentJob getStudentJobs() {
+        return studentJobs;
+    }
+
+    public void setStudentJobs(StudentJob studentJobs) {
+        this.studentJobs = studentJobs;
+    }
+
     
 
     public String getEmployerName() {
@@ -80,11 +93,11 @@ public class Employment {
         this.deptName = deptName;
     }
 
-    public String getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
@@ -104,7 +117,14 @@ public class Employment {
         this.jobDesc = jobDesc;
     }
 
-    
+    public String getJobPosition() {
+        return jobPosition;
+    }
+
+    public void setJobPosition(String jobPosition) {
+        this.jobPosition = jobPosition;
+    }
+
     public Double getJobPrice() {
         return jobPrice;
     }

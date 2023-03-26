@@ -14,6 +14,6 @@ import javax.swing.JFrame;
  * @author tanujkodali
  */
 public abstract class Role {
-    public abstract JFrame createWorkArea(Business business, UserAccounts userAccount);
+    public abstract JFrame createWorkArea(Business business, UserAccounts userAccount,Department dept);
     
 }

@@ -21,7 +21,7 @@ public class SystemAdmin extends Role{
     }
     
     @Override
-    public JFrame createWorkArea(Business business, UserAccounts userAccounts){
-        return new SystemAdminJFrame(business, userAccounts);
+    public JFrame createWorkArea(Business business, UserAccounts userAccounts,Department dept){
+        return new SystemAdminJFrame(business, userAccounts,dept);
     }
 }

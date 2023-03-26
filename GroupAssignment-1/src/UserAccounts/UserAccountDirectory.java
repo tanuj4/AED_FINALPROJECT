@@ -12,12 +12,12 @@ import java.util.ArrayList;
  */
 public class UserAccountDirectory {
     ArrayList<UserAccounts> adminUserAccountDirectory;
-    ArrayList<UserAccounts> studentUserAccountDirectory;
+    //ArrayList<UserAccounts> studentUserAccountDirectory;
 
     
     public UserAccountDirectory(){
         this.adminUserAccountDirectory = new ArrayList<UserAccounts>();
-        this.studentUserAccountDirectory = new ArrayList<UserAccounts>();
+        //this.studentUserAccountDirectory = new ArrayList<UserAccounts>();
     }
 
     public ArrayList<UserAccounts> getAdminUserAccountDirectory() {
@@ -28,16 +28,14 @@ public class UserAccountDirectory {
         this.adminUserAccountDirectory = adminUserAccountDirectory;
     }
 
-    public ArrayList<UserAccounts> getStudentUserAccountDirectory() {
+   /* public ArrayList<UserAccounts> getStudentUserAccountDirectory() {
         return studentUserAccountDirectory;
     }
 
     public void setStudentUserAccountDirectory(ArrayList<UserAccounts> studentUserAccountDirectory) {
         this.studentUserAccountDirectory = studentUserAccountDirectory;
-    }
-
-    
-    
+    }*/
+  
     //METHODS
     
     //this method is to create a username, password for System Admin, Faculty, HOD, Employee
@@ -48,37 +46,29 @@ public class UserAccountDirectory {
     } 
     
     //this method is to create a username, password for student.
-    public UserAccounts createStudentUser(String username, String password, String role){
+    /*public UserAccounts createStudentUser(String username, String password, String role){
         UserAccounts user = new UserAccounts(username,password,role);
         this.studentUserAccountDirectory.add(user);
         return user;
-    } 
+    } */
     
     public Boolean accountExists(String username, String password, String role){
-        System.out.println("7");
         for(UserAccounts u: this.adminUserAccountDirectory){
-            System.out.println(u.getUsername());
-            System.out.println(u.getPassword());
-            System.out.println(u.getRole());
-            
-            System.out.println("8");
             if(u.getUsername().equals(username) && u.getPassword().equals(password) && u.getRole().equals(role)){
-                System.out.println("9");
-                System.out.println(u.getRole());
                 return true;
                }
         }
         return false;
     }
     
-    public Boolean studentAccountExists(String username, String password, String role){
+    /*public Boolean studentAccountExists(String username, String password, String role){
         for(UserAccounts u: this.studentUserAccountDirectory){
             if(u.getUsername().equals(username) && u.getPassword().equals(password) && u.getRole().equals(role)){
                    return true;
                }
         }
         return false;
-    }
+    }*/
     
     public UserAccounts checkUser(String username, String password, String role){
         for(UserAccounts u: this.adminUserAccountDirectory){
@@ -89,11 +79,47 @@ public class UserAccountDirectory {
         return null;
     }
     
+    /*
     public UserAccounts checkStudentUser(String username, String password, String role){
         for(UserAccounts u: this.studentUserAccountDirectory){
             if(u.getUsername().equals(username) && u.getPassword().equals(password) && u.getRole().equals(role)){
                 System.out.println(u.getUsername());
                 return u;
+            }
+        }
+        return null;
+    }*/
+public  UserAccounts  findHodbyId(String id){
+        for( UserAccounts userAccount: this.adminUserAccountDirectory){
+            if( userAccount.getHodId().equals(id)){
+                return userAccount;
+            }
+        }
+        return null;
+    }
+
+public  UserAccounts  findStudentbyId(String id){
+        for( UserAccounts userAccount: this.adminUserAccountDirectory){
+            if(userAccount.getStudentId().equals(id)){
+                return userAccount;
+            }
+        }
+        return null;
+    }
+
+public  UserAccounts  findEmployerbyId(String id){
+        for( UserAccounts userAccount: this.adminUserAccountDirectory){
+            if(userAccount.getEmployerId().equals(id)){
+                return userAccount;
+            }
+        }
+        return null;
+    }
+
+public  UserAccounts  findFacultybyId(String id){
+        for( UserAccounts userAccount: this.adminUserAccountDirectory){
+            if(userAccount.getFacultyId().equals(id)){
+                return userAccount;
             }
         }
         return null;

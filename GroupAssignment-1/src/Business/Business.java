@@ -14,6 +14,7 @@ import Student.StudentDirectory;
 import UserAccounts.UserAccountDirectory;
 import UserAccounts.UserAccounts;
 import Employment.EmploymentDirectory;
+import StudentJobQueue.StudentJobDirectory;
 
 /**
  *
@@ -29,6 +30,7 @@ public class Business {
     College departmentDirectory;
     CourseCatalog courseCatalogDirectory;
     EmploymentDirectory jobRequestDirectory;
+    StudentJobDirectory studentJobDirectory;
     
     public Business(){
         this.userAccountDirectory = new UserAccountDirectory();
@@ -40,6 +42,7 @@ public class Business {
         this.departmentDirectory = new College();
         this.courseCatalogDirectory = new CourseCatalog();
         this.jobRequestDirectory = new EmploymentDirectory();
+        this.studentJobDirectory = new StudentJobDirectory();
         
         this.userAccountDirectory.createUser("admin", "admin", "System Admin",null);
     }
@@ -115,7 +118,15 @@ public class Business {
     public void setCourseCatalogDirectory(CourseCatalog courseCatalogDirectory) {
         this.courseCatalogDirectory = courseCatalogDirectory;
     }
-   
+
+    public StudentJobDirectory getStudentJobDirectory() {
+        return studentJobDirectory;
+    }
+
+    public void setStudentJobDirectory(StudentJobDirectory studentJobDirectory) {
+        this.studentJobDirectory = studentJobDirectory;
+    }
+
     public static Business getInstance(){
         return new Business();
     }

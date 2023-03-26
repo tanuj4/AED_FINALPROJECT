@@ -8,6 +8,7 @@ package UI.SystemAdminPanel;
 import Business.Business;
 import Department.College;
 import Department.Department;
+import HODProfile.Hod;
 import UserAccounts.UserAccountDirectory;
 import UserAccounts.UserAccounts;
 import javax.swing.JOptionPane;
@@ -26,6 +27,7 @@ public class DepartmentJPanel extends javax.swing.JPanel {
     UserAccounts userAccounts;
     UserAccountDirectory userAccountDirectory;
     DefaultTableModel deptTableModel;
+    Department dept;
    
     
     
@@ -34,11 +36,13 @@ public class DepartmentJPanel extends javax.swing.JPanel {
     }
     
     
-    public DepartmentJPanel(Business business, UserAccounts userAccounts) {
+    public DepartmentJPanel(Business business, UserAccounts userAccounts,Department dept) {
          initComponents();
         this.business = business;
         this.userAccounts = userAccounts;
+        this.dept = dept;
         this.deptTableModel = (DefaultTableModel) DeptjTable.getModel();
+        displaydept();
        
       }
 
@@ -54,10 +58,6 @@ public class DepartmentJPanel extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        fieldCollege = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        fieldid = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         fieldDeptName = new javax.swing.JTextField();
         createDeptBtn = new javax.swing.JButton();
@@ -69,12 +69,6 @@ public class DepartmentJPanel extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
         jLabel1.setText("Department");
-
-        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 12)); // NOI18N
-        jLabel2.setText("College:");
-
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 12)); // NOI18N
-        jLabel3.setText("Department ID:");
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 12)); // NOI18N
         jLabel4.setText("Department Name:");
@@ -89,17 +83,17 @@ public class DepartmentJPanel extends javax.swing.JPanel {
 
         DeptjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "College", "DepartmentID", "Department Name"
+                "Department ID", "Department Name"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -110,63 +104,51 @@ public class DepartmentJPanel extends javax.swing.JPanel {
 
         jButton2.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jButton2.setText("Delete");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(389, 389, 389)
+                .addComponent(jLabel1))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(166, 166, 166)
+                .addComponent(jLabel4)
+                .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(166, 166, 166)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(fieldCollege, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fieldid, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fieldDeptName, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(createDeptBtn))
-                        .addGap(80, 80, 80)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(389, 389, 389)
-                        .addComponent(jLabel1)))
-                .addContainerGap(12, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(250, 250, 250))
+                    .addComponent(createDeptBtn)
+                    .addComponent(fieldDeptName, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(80, 80, 80)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(693, 693, 693)
+                .addComponent(jButton2))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(jLabel1)
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jLabel2)
-                        .addGap(37, 37, 37)
-                        .addComponent(jLabel3)
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel4))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(fieldCollege, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(fieldid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(fieldDeptName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
+                        .addGap(51, 51, 51)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel4))
+                            .addComponent(fieldDeptName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addComponent(createDeptBtn))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addContainerGap(245, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addComponent(jButton2))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -185,8 +167,8 @@ public class DepartmentJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     UserAccountDirectory User = this.business.getUserAccountDirectory();
         
-        String college = fieldCollege.getText();
-        String depId = fieldid.getText();
+        
+        
         String depName = fieldDeptName.getText();
        
         /*
@@ -201,28 +183,55 @@ public class DepartmentJPanel extends javax.swing.JPanel {
         */
         
         UserAccountDirectory userDir = this.business.getUserAccountDirectory();
-        if(college.isBlank() || depId.isBlank() || depName.isBlank()){
+        Department dept = new Department("Department-");
+        if( depName.isBlank()){
             JOptionPane.showMessageDialog(null,"Please enter details in all fields");
         } else {
-            this.business.getDepartmentDirectory().createDepartment(depId, depName);
+            this.business.getDepartmentDirectory().createDepartment(dept.getDeptId(), depName);
             JOptionPane.showMessageDialog(null, "Department Created!!!");
         }
-        
+        displaydept();
 
     }//GEN-LAST:event_createDeptBtnActionPerformed
 
-   
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+         int selectedRow  =  DeptjTable.getSelectedRow();
+        
+        if(selectedRow >= 0){
+            //delete the object
+            this.dept = (Department) DeptjTable.getValueAt(selectedRow,0);
+            this.business.getDepartmentDirectory().deleteApplicant(dept.getDeptId());
+
+        }
+        displaydept();
+    
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+   public void displaydept(){
+        
+       deptTableModel.setRowCount(0);
+        for(Department dept: this.business.getDepartmentDirectory().getDepartmentList()){
+
+            
+            
+            Object[] row = new Object[10];
+            
+            row[0] = dept;
+            row[1] = dept.getName();
+        
+               
+            deptTableModel.addRow(row);
+            
+        }
+    }
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable DeptjTable;
     private javax.swing.JButton createDeptBtn;
-    private javax.swing.JTextField fieldCollege;
     private javax.swing.JTextField fieldDeptName;
-    private javax.swing.JTextField fieldid;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

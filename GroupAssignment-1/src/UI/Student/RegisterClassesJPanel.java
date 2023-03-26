@@ -5,8 +5,17 @@
 package UI.Student;
 
 import Business.Business;
+import CourseCatalog.Course;
 import Department.Department;
+import Employment.Employment;
+import FacultyProfile.Faculty;
+import Student.Student;
 import UserAccounts.UserAccounts;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,6 +29,9 @@ public class RegisterClassesJPanel extends javax.swing.JPanel {
     Business business;
     UserAccounts userAccounts;
     Department dept;
+    DefaultTableModel viewTableModel;
+    DefaultTableModel viewTableModel1;
+    Course selectedCourse;
     
     public RegisterClassesJPanel() {
         initComponents();
@@ -28,9 +40,13 @@ public class RegisterClassesJPanel extends javax.swing.JPanel {
     public RegisterClassesJPanel(Business business, UserAccounts userAccounts, Department dept) {
         initComponents();
         
+        this.setVisible(true);
         this.business = business;
         this.userAccounts = userAccounts;
         this.dept = dept;
+        this.viewTableModel = (DefaultTableModel) courseOffered.getModel();
+        this.viewTableModel1 = (DefaultTableModel) courseRegistered.getModel();
+        displayRegisteredCourses();
     }
 
     /**
@@ -42,19 +58,279 @@ public class RegisterClassesJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 587, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 344, Short.MAX_VALUE)
-        );
+        jLabel6 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        checkCourse = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        courseRegistered = new javax.swing.JTable();
+        semComboBox = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        dropCourse = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        courseOffered = new javax.swing.JTable();
+        register = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(255, 153, 51));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setText("Select Semester");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jLabel9.setText("Register for Courses");
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, -1, -1));
+
+        checkCourse.setText("Check Courses");
+        checkCourse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkCourseActionPerformed(evt);
+            }
+        });
+        add(checkCourse, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 330, 110, 20));
+
+        courseRegistered.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Course Id", "Course Name", "Course Credits", "Semester", "Teaching Faculty"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(courseRegistered);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 500, 600, 210));
+
+        semComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Spring", "Summer", "Fall" }));
+        semComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                semComboBoxActionPerformed(evt);
+            }
+        });
+        add(semComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 280, 90, -1));
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel1.setText("Course Registration");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jLabel2.setText("Courses Offered");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, -1, -1));
+
+        dropCourse.setText("Drop");
+        dropCourse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dropCourseActionPerformed(evt);
+            }
+        });
+        add(dropCourse, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 720, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jLabel8.setText("Registered Courses");
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 470, -1, -1));
+
+        courseOffered.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Course Id", "Course Name", "Course Credits", "Semester", "Teaching Faculty"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(courseOffered);
+
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 190, 600, 210));
+
+        register.setText("Register");
+        register.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerActionPerformed(evt);
+            }
+        });
+        add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 410, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void semComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_semComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_semComboBoxActionPerformed
+
+    private void checkCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCourseActionPerformed
+        // TODO add your handling code here:
+        String semester = (String) semComboBox.getSelectedItem();
+        
+        ArrayList<Department> department = this.business.getDepartmentDirectory().getDepartmentList();
+        
+        for ( Department d : department ){
+            if (d.getName()==userAccounts.getDeptName()){
+                if(d.getCourseCatalog().getCourselist().size()>0){
+                    viewTableModel.setRowCount(0);
+            
+                for(Course c: d.getCourseCatalog().getCourselist()){
+                    if(c.getSem().getSemName()==semester){
+                    if(c.getFaculty().getName() != null && !(c.getFaculty().getName().isEmpty())){
+                        Object row[] = new Object[5];
+                        row[0]=c;
+                        row[1]=c.getName();
+                        row[2]=c.getCredits();
+                        row[3]=c.getSem().getSemName();
+                        row[4]=c.getFaculty().getName();
+                        viewTableModel.addRow(row); 
+                    }   
+                    else{
+                        System.out.println("Empty List");
+                    }
+                } }
+                
+            }
+            else
+            {
+                System.out.println("Empty List");   
+            }
+        }
+    }
+    }//GEN-LAST:event_checkCourseActionPerformed
+
+    private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = courseOffered.getSelectedRow();
+        
+        if(selectedRow >= 0){
+           this.selectedCourse = (Course) courseOffered.getValueAt(selectedRow, 0);
+           
+           ArrayList<Department> department = this.business.getDepartmentDirectory().getDepartmentList();
+           ArrayList<Student> student =  this.business.getStudentDirectory().getStudentList();
+        
+           System.out.println("Inside registration1");
+           for ( Department d : department ){
+               System.out.println("Inside registration2");
+            if (d.getName()==userAccounts.getDeptName()){
+                System.out.println("Inside registration3");
+                for (Student s : student){
+                    System.out.println("Inside registration4");
+                    System.out.println(s.getId());
+                    System.out.println(userAccounts.getStudentId());
+                    if(userAccounts.getStudentId().equals(s.getId())){
+                        System.out.println("Inside registration5");
+                        s.registerCourse(selectedCourse);
+                        JOptionPane.showMessageDialog(null, "Registered for the selected course");
+                        System.out.println("Inside registration6");
+                        break;
+                    }
+                    else{
+                        System.out.println("Inside registration7");
+                    }
+                }
+            }
+           }
+           System.out.println("Outside registration");
+           displayRegisteredCourses();
+    }//GEN-LAST:event_registerActionPerformed
+
+        
+    }
+ 
+    private void displayRegisteredCourses() {
+        
+        ArrayList<Department> department = this.business.getDepartmentDirectory().getDepartmentList();
+        ArrayList<Student> student =  this.business.getStudentDirectory().getStudentList();
+        
+        
+        for ( Department d : department ){
+            if (d.getName()==userAccounts.getDeptName()){
+                for (Student s : student){
+                    if(userAccounts.getStudentId().equals(s.getId())){
+                        viewTableModel1.setRowCount(0);
+                        System.out.println("Inside display");
+                        for (Course c: s.getCourseSeat()){
+                            Object row[] = new Object[5];
+                            row[0]=c;
+                            row[1]=c.getName();
+                            row[2]=c.getCredits();
+                            row[3]=c.getSem().getSemName();
+                            row[4]=c.getFaculty().getName();
+                            viewTableModel1.addRow(row);
+                        } 
+                    }
+                    else{
+                        System.out.println("Empty List1");
+                    }
+                }
+            }
+            else{
+                System.out.println("Empty List2");
+            }
+           }
+           
+    
+    }
+    
+    
+    private void dropCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropCourseActionPerformed
+        // TODO add your handling code here:
+        
+       int selectedRow = courseRegistered.getSelectedRow();
+        
+        if(selectedRow >= 0){
+           this.selectedCourse = (Course) courseRegistered.getValueAt(selectedRow, 0);
+           
+           ArrayList<Department> department = this.business.getDepartmentDirectory().getDepartmentList();
+           ArrayList<Student> student =  this.business.getStudentDirectory().getStudentList();
+        
+           for ( Department d : department ){
+            if (d.getName()==userAccounts.getDeptName()){
+                for (Student s : student){
+                    if(userAccounts.getStudentId().equals(s.getId())){
+                        System.out.println("Inside drop");
+                        s.dropCourse(selectedCourse);
+                        JOptionPane.showMessageDialog(null, "Successfully dropped for the selected course");
+                        System.out.println("Inside drop");
+                        break;
+                    }
+                }
+            }
+           }
+           System.out.println("Outside drop");
+           displayRegisteredCourses();
+    }
+        
+
+    }//GEN-LAST:event_dropCourseActionPerformed
+
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton checkCourse;
+    private javax.swing.JTable courseOffered;
+    private javax.swing.JTable courseRegistered;
+    private javax.swing.JButton dropCourse;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton register;
+    private javax.swing.JComboBox semComboBox;
     // End of variables declaration//GEN-END:variables
+
+
 }

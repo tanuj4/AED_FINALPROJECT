@@ -21,11 +21,13 @@ public class Course {
     String department;
     Semester sem;
     Faculty faculty;
+    Feedback feedback;
     
     public Course(){
         this.courseId = "Course-" + ++this.count;
         this.sem = new Semester();
         this.faculty = new Faculty();
+        this.feedback = new Feedback();
     }
 
     public Course(int creditPrice, String name,int credits, String department) {
@@ -36,6 +38,14 @@ public class Course {
         this.department = department;
     }
 
+    public Feedback getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(Feedback feedback) {
+        this.feedback = feedback;
+    }
+    
     public Faculty getFaculty() {
         return faculty;
     }

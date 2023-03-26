@@ -5,8 +5,16 @@
 package UI.Student;
 
 import Business.Business;
+import CourseCatalog.Course;
 import Department.Department;
+import FacultyProfile.Faculty;
+import Student.Student;
 import UserAccounts.UserAccounts;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,6 +28,7 @@ public class FeedbackJPanel extends javax.swing.JPanel {
     Business business;
     UserAccounts userAccounts;
     Department dept;
+    DefaultTableModel viewTableModel;
 
     public FeedbackJPanel() {
         initComponents();
@@ -31,6 +40,10 @@ public class FeedbackJPanel extends javax.swing.JPanel {
         this.business = business;
         this.userAccounts = userAccounts;
         this.dept = dept;
+        this.viewTableModel = (DefaultTableModel) courseFeedback.getModel();
+        populateComboBoxes();
+        populateCourseFields();
+        displayFeedbackTable();
     }
 
     /**
@@ -42,19 +55,296 @@ public class FeedbackJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        courseFeedback = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        courseComboBox = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
+        courseName = new javax.swing.JTextField();
+        courseSem = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        faculty = new javax.swing.JTextField();
+        ratingCombo = new javax.swing.JComboBox();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        description = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        submitFeedback = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(255, 241, 191));
+
+        courseFeedback.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Course Id", "Course Name", "Semester", "Faculty", "Rating", "Description"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(courseFeedback);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel8.setText("Feedback Form");
+
+        jLabel3.setText("Select Course Id");
+
+        jLabel6.setText("Semester");
+
+        courseComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                courseComboBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Course Name");
+
+        courseName.setEnabled(false);
+
+        courseSem.setEnabled(false);
+
+        jLabel7.setText("Faculty");
+
+        faculty.setEnabled(false);
+
+        ratingCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5" }));
+        ratingCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ratingComboActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Select Rating");
+
+        jLabel1.setText("1 - Lowest, 5 - Highest");
+
+        description.setColumns(20);
+        description.setRows(5);
+        jScrollPane2.setViewportView(description);
+
+        jLabel2.setText("Description/Comments");
+
+        submitFeedback.setText("Submit");
+        submitFeedback.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitFeedbackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(85, 85, 85)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(courseSem, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(faculty, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(ratingCombo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(courseComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(courseName, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))
+                                .addGap(82, 82, 82)))
+                        .addGap(51, 51, 51)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 629, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(167, 167, 167)
+                        .addComponent(submitFeedback)))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(92, 92, 92)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(courseComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(courseName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(courseSem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(faculty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ratingCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(submitFeedback)
+                .addContainerGap(48, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void courseComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courseComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_courseComboBoxActionPerformed
+
+    private void ratingComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ratingComboActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ratingComboActionPerformed
+
+    private void submitFeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitFeedbackActionPerformed
+        // TODO add your handling code here:
+        
+        ArrayList<Student> student =  this.business.getStudentDirectory().getStudentList();
+        
+        for (Student s : student){
+            if(s.getDeptName().equals(userAccounts.getDeptName()) && s.getId().equals(userAccounts.getStudentId())){
+                String course = courseName.getText();
+                String rating = (String) ratingCombo.getSelectedItem();
+                String desc = description.getText();
+                for (Course c: s.getCourseSeat()){
+                    System.out.println(c.getName());
+                    System.out.println(course);
+                    if(c.getName().equals(course)){
+                        c.getFeedback().setFeedbackRating(Integer.valueOf(rating));
+                        c.getFeedback().setFeedbackComment(desc);
+                        JOptionPane.showMessageDialog(null, "Feedback Added & sent to Faculty");
+                        break;
+                    }      
+                }
+            }
+            else
+            {
+                System.out.println("Empty List");   
+            }
+        }
+        displayFeedbackTable();
+    }//GEN-LAST:event_submitFeedbackActionPerformed
+
+    private void displayFeedbackTable() {
+        
+        ArrayList<Student> student =  this.business.getStudentDirectory().getStudentList();
+        
+        for (Student s : student){
+            if(s.getDeptName().equals(userAccounts.getDeptName()) && s.getId().equals(userAccounts.getStudentId())){
+                viewTableModel.setRowCount(0);
+                for (Course c: s.getCourseSeat()){
+                    if(c.getFeedback().getFeedbackRating()!=0){
+                        Object row[] = new Object[6];
+                        row[0]=c;
+                        row[1]=c.getName();
+                        row[2]=c.getSem().getSemName();
+                        row[3]=c.getFaculty().getName();
+                        row[4]=c.getFeedback().getFeedbackRating();
+                        row[5]=c.getFeedback().getFeedbackComment();
+                        viewTableModel.addRow(row);
+                    }
+                    else{
+                        System.out.println("Feedback not added for any course");
+                    }
+                }
+            }
+            else{
+                System.out.println("Empty List1");
+            }
+        }
+    }
+    
+    private void populateComboBoxes() {
+
+        ArrayList<Student> student =  this.business.getStudentDirectory().getStudentList();
+        
+        courseComboBox.removeAllItems();
+        
+        for (Student s : student){
+            if(s.getDeptName().equals(userAccounts.getDeptName()) && s.getId().equals(userAccounts.getStudentId())){
+                for (Course c: s.getCourseSeat()){
+                    courseComboBox.addItem(c);
+                }
+            }
+            else
+            {
+                System.out.println("Empty List");   
+            }
+        }      
+    }
+    
+    private void populateCourseFields() {
+        try {
+            Course c = (Course) courseComboBox.getSelectedItem();
+            courseName.setText(c.getName());
+            courseSem.setText(c.getSem().getSemName());
+            faculty.setText(c.getFaculty().getName());
+        
+            courseComboBox.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Course c = (Course) courseComboBox.getSelectedItem();
+                courseName.setText(c.getName());
+                courseSem.setText(c.getSem().getSemName());
+                faculty.setText(c.getFaculty().getName());
+            }
+            });
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox courseComboBox;
+    private javax.swing.JTable courseFeedback;
+    private javax.swing.JTextField courseName;
+    private javax.swing.JTextField courseSem;
+    private javax.swing.JTextArea description;
+    private javax.swing.JTextField faculty;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JComboBox ratingCombo;
+    private javax.swing.JButton submitFeedback;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,11 +13,21 @@ import Person.Person;
 public class Hod extends Person {
     String departmentName;
     Double experience;
-    
+    String id;
     
      public  Hod(){
-        
+          super();
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+  
+    
 
     public String getDepartmentName() {
         return departmentName;
@@ -35,5 +45,8 @@ public class Hod extends Person {
         this.experience = experience;
     }
      
-     
+     @Override
+    public String toString(){
+        return this.departmentName;
+    }
 }

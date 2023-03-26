@@ -7,6 +7,9 @@ package UI.Student;
 import Business.Business;
 import Department.Department;
 import Employment.Employment;
+import Student.Student;
+import StudentJobQueue.StudentJob;
+import StudentJobQueue.StudentJobDirectory;
 import UserAccounts.UserAccounts;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -24,7 +27,10 @@ public class ApplyJobsJPanel extends javax.swing.JPanel {
     Business business;
     UserAccounts userAccounts;
     Department dept;
+    StudentJob studentJob;
+    Employment employment;
     DefaultTableModel jobTableModel;
+    DefaultTableModel studentJobTableModel;
 
     public ApplyJobsJPanel() {
         initComponents();
@@ -36,10 +42,14 @@ public class ApplyJobsJPanel extends javax.swing.JPanel {
         this.business = business;
         this.userAccounts = userAccounts;
         this.dept = dept;
+        this.studentJob = new StudentJob();
+        this.employment = new Employment();
         this.jobTableModel = (DefaultTableModel) jobTable.getModel();
+        this.studentJobTableModel = (DefaultTableModel) studentJobTable.getModel();
         
+        deptNameLabel.setText(userAccounts.getDeptName());
         displayDept();
-       
+        displayJobs();
     }
 
     /**
@@ -62,17 +72,41 @@ public class ApplyJobsJPanel extends javax.swing.JPanel {
         jobTable = new javax.swing.JTable();
         showBtn = new javax.swing.JButton();
         showJobsBtn = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jobId = new javax.swing.JTextField();
+        jobRole = new javax.swing.JTextField();
+        jobStatus = new javax.swing.JTextField();
+        employer = new javax.swing.JTextField();
+        department = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        studentJobTable = new javax.swing.JTable();
+        dispJobsBtn = new javax.swing.JButton();
+        deptNameLabel = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jobPosition = new javax.swing.JTextField();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setBackground(new java.awt.Color(240, 190, 219));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setText("Apply For Jobs");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, -1, -1));
 
         jLabel2.setText("Select Department:");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
 
         jLabel3.setText("Select Job:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, -1, -1));
+
+        add(deptComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 99, -1));
+
+        add(jobComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 91, -1));
 
         applyBtn.setText("Apply");
         applyBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -80,20 +114,21 @@ public class ApplyJobsJPanel extends javax.swing.JPanel {
                 applyBtnActionPerformed(evt);
             }
         });
+        add(applyBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 620, -1, -1));
 
         jobTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Department Name", "Employer ", "Job ID", "Job Role", "Job Price", "Job Status", "Job Descriptin"
+                "Department Name", "Employer ", "Job ID", "Job Role", "Job Price", "Job Status", "Job Descriptin", "Job Position"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -102,12 +137,15 @@ public class ApplyJobsJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jobTable);
 
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 677, 196));
+
         showBtn.setText("Show Job Details");
         showBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showBtnActionPerformed(evt);
             }
         });
+        add(showBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 70, -1, -1));
 
         showJobsBtn.setText("Show Jobs");
         showJobsBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -115,62 +153,80 @@ public class ApplyJobsJPanel extends javax.swing.JPanel {
                 showJobsBtnActionPerformed(evt);
             }
         });
+        add(showJobsBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(jLabel2)
-                                .addGap(12, 12, 12)
-                                .addComponent(deptComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(showJobsBtn)
-                                .addGap(63, 63, 63)
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jobComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(9, 9, 9)
-                                .addComponent(showBtn))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(339, 339, 339)
-                                .addComponent(applyBtn))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(315, 315, 315)
-                        .addComponent(jLabel1)))
-                .addGap(76, 76, 76))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel1)
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(deptComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(showJobsBtn)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jobComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3))
-                    .addComponent(showBtn))
-                .addGap(54, 54, 54)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(applyBtn)
-                .addContainerGap())
-        );
+        jLabel4.setText("Job Id:");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, -1, -1));
+
+        jLabel5.setText("Job Role:");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 430, -1, -1));
+
+        jLabel6.setText("Job Status:");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, -1, -1));
+
+        jLabel7.setText("Employer:");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 540, -1, -1));
+
+        jLabel8.setText("Department:");
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 580, -1, -1));
+
+        jobId.setEnabled(false);
+        add(jobId, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 390, 91, -1));
+
+        jobRole.setEnabled(false);
+        add(jobRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 430, 91, -1));
+
+        jobStatus.setEnabled(false);
+        add(jobStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 470, 91, -1));
+
+        employer.setEnabled(false);
+        employer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                employerActionPerformed(evt);
+            }
+        });
+        add(employer, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 540, 91, -1));
+
+        department.setEnabled(false);
+        add(department, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 580, 91, -1));
+
+        studentJobTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Application Id", "Employer", "Job Id", "Job Role", "Job Status", "Department", "Application Status", "Student ID", "Job Position"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(studentJobTable);
+
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 380, 380, 210));
+
+        dispJobsBtn.setText("Show Jobs");
+        dispJobsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dispJobsBtnActionPerformed(evt);
+            }
+        });
+        add(dispJobsBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 330, -1, -1));
+        add(deptNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, 170, 30));
+
+        jLabel9.setText("Job Position:");
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 510, -1, -1));
+
+        jobPosition.setEnabled(false);
+        add(jobPosition, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 510, 90, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void showBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showBtnActionPerformed
@@ -192,7 +248,7 @@ public class ApplyJobsJPanel extends javax.swing.JPanel {
                 row[4] = e.getJobPrice();
                 row[5] = e.getStatus();
                 row[6] = e.getJobDesc();
-                
+                row[7] = e.getJobPosition();
                 
                 jobTableModel.addRow(row);
             }
@@ -201,29 +257,36 @@ public class ApplyJobsJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_showBtnActionPerformed
 
     public void displayJobs(){
-        ArrayList<Employment> emps = this.business.getJobRequestDirectory().getEmploymentList();
         
-        if(emps.size()>0){
-            jobTableModel.setRowCount(0);
+        ArrayList<StudentJob> studs = this.business.getStudentJobDirectory().getStudentJobDirectory();
+        
+        if(studs.size()>0){
             
-            for(Employment e: emps){
-                if(e.getRole().equals(jobComboBox.getSelectedItem())){
-                Object row[] = new Object[10];
+            studentJobTableModel.setRowCount(0);
+            
+            for(StudentJob s: studs){
+                if(s.getStudentid().equals(this.userAccounts.getStudentId())){
+                     Object row[] = new Object[10];
+
+                 
+                     row[0] = s;
+                     row[1] = s.getEmployerName();
+                     row[2] = s.getJobStatus();
+                     row[3] = s.getJobId();
+                     row[4] = s.getJobRole();
+                     row[5] = s.getDeptName();
+                     row[6] = s.getApplicationStatus();
+                     row[7] = s.getStudentid();
+                     row[8] = s.getJobPosition();
+                     studentJobTableModel.addRow(row);
                 
-                row[0] = e;
-                row[1] = e.getEmployerName();
-                row[2] = e.getEmploymentId();
-                row[3] = e.getRole();
-                row[4] = e.getJobPrice();
-                row[5] = e.getStatus();
-                row[6] = e.getJobDesc();
-                
-                
-                jobTableModel.addRow(row);
-            }
-          }
+                }
+               
+       }
         }
-    }
+       
+        }
+    
     private void showJobsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showJobsBtnActionPerformed
         // TODO add your handling code here:
         
@@ -237,37 +300,65 @@ public class ApplyJobsJPanel extends javax.swing.JPanel {
 
     private void applyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyBtnActionPerformed
         // TODO add your handling code here:
-        /*
-        int selectedRow = rentTable.getSelectedRow();
-        
-        RentalRequest r = (RentalRequest) rentTable.getValueAt(selectedRow, 0);
-        
-        if(r.getStatus().equals("Accept")){
-            r.setStatus("Rented");
-            r.getBook().setIsAvailable("no");
-        } else if(r.getStatus().equals("Rejected")){
-            JOptionPane.showMessageDialog(null, "Rental Request has been rejected");
-        } else {
-            JOptionPane.showMessageDialog(null, "Rental Request is in process!");
-        }    
-        */
-        
+       
         int selectedRow = jobTable.getSelectedRow();
+       
+        if(selectedRow >= 0){
+            String selectedJobId = jobTable.getValueAt(selectedRow, 2).toString();
+            ArrayList<Employment> jobs = this.business.getJobRequestDirectory().getEmploymentList();
+            String status = jobStatus.getText();
+            StudentJobDirectory sjdir = this.business.getStudentJobDirectory();
+            if(Boolean.valueOf(status)){
+            for(int i=0;i<jobs.size();i++){
+                
+                Employment emp = jobs.get(i);
+                
+                
+                    if(emp.getEmploymentId() == selectedJobId){
+                        StudentJob sj = emp.getStudentJobs();
+                        if(sjdir.checkApplied(userAccounts.getStudentId(), selectedJobId, "Applied")){    
+                            JOptionPane.showMessageDialog(null, "You have already applied for this job");
+                        } else {
+                        StudentJob studjob = new StudentJob();
+                        StudentJobDirectory sjd = this.business.getStudentJobDirectory();                       
+                        StudentJob ssj = sjd.createStudentJobRequest(sj,studjob.getApplicationId(), employer.getText(), jobStatus.getText(), jobId.getText(), jobRole.getText(), department.getText(),"Applied", userAccounts.getStudentId(), jobPosition.getText());
+                        emp.setStudentJobs(sj);
+                        System.out.println(ssj.getJobStatus());
+                        JOptionPane.showMessageDialog(null, "Job Application Sent to Employer");
+                
+                    }
+                    } } 
+            } else {
+                    JOptionPane.showMessageDialog(null, "Job offering has been closed");
+                }      
+        }
         
-        Employment emp =(Employment) jobTable.getValueAt(selectedRow, 0);
-        
-        //if((emp.getStatus().equals("Open") && emp.getBackendStatus().equals("Open")) || (emp.getStatus().equals("Open") && emp.getBackendStatus().equals("Applied"))){
-            //emp.setStatus("Applied");
-        if(emp.getStatus().equals("Open")){
-            emp.setBackendStatus("Applied");
-            JOptionPane.showMessageDialog(null, "Your application has been sent");
-            emp.setStudentId(userAccounts.getAccountId());
-        } else if (emp.getStatus().equals("Closed")){
-            JOptionPane.showMessageDialog(null, "You cannot apply to this job");
-        } 
-
         displayJobs();
     }//GEN-LAST:event_applyBtnActionPerformed
+
+    private void employerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_employerActionPerformed
+
+    private void dispJobsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dispJobsBtnActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = jobTable.getSelectedRow();
+        
+        if(selectedRow >= 0){
+           this.employment = (Employment) jobTable.getValueAt(selectedRow, 0);
+           
+           
+               employer.setText(this.employment.getEmployerName());
+               jobId.setText(this.employment.getEmploymentId());
+               jobRole.setText(this.employment.getRole());
+               jobStatus.setText(String.valueOf(this.employment.getStatus()));
+               department.setText(this.employment.getDeptName());
+               jobPosition.setText(this.employment.getJobPosition());
+            
+        } else{
+            JOptionPane.showMessageDialog(null, "No Selection");
+        }
+    }//GEN-LAST:event_dispJobsBtnActionPerformed
 
     public void displayDept(){
       deptComboBox.removeAllItems();
@@ -278,15 +369,31 @@ public class ApplyJobsJPanel extends javax.swing.JPanel {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton applyBtn;
+    private javax.swing.JTextField department;
     private javax.swing.JComboBox deptComboBox;
+    private javax.swing.JLabel deptNameLabel;
+    private javax.swing.JButton dispJobsBtn;
+    private javax.swing.JTextField employer;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JComboBox jobComboBox;
+    private javax.swing.JTextField jobId;
+    private javax.swing.JTextField jobPosition;
+    private javax.swing.JTextField jobRole;
+    private javax.swing.JTextField jobStatus;
     private javax.swing.JTable jobTable;
     private javax.swing.JButton showBtn;
     private javax.swing.JButton showJobsBtn;
+    private javax.swing.JTable studentJobTable;
     // End of variables declaration//GEN-END:variables
 }

@@ -35,5 +35,16 @@ public class College {
         return dept;
     }
     
+    
+      public void deleteApplicant(String id){
+        for(Department dept : this.departmentList){
+            if(dept.deptId==id){
+                this.departmentList.remove(dept);
+                break;
+            }
+        }
+    
+    }
+    
 }
 

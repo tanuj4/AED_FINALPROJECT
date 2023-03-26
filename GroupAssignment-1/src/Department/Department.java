@@ -20,17 +20,16 @@ public class Department {
     String name;
     String deptId;
     CourseCatalog courseCatalog;
+    private static int count=1;
     
     public Department(){
+        //this.deptId = "Department-" + this.count++;
         this.courseCatalog = new CourseCatalog();
-    }
-
-    public String getDeptId() {
-        return deptId;
-    }
-
-    public void setDeptId(String deptId) {
-        this.deptId = deptId;
+    } 
+    
+    public Department(String deptName){
+        this.deptId = deptName + this.count++;
+        this.courseCatalog = new CourseCatalog();
     }
 
     public String getName() {
@@ -41,6 +40,14 @@ public class Department {
         this.name = name;
     }
 
+    public String getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(String deptId) {
+        this.deptId = deptId;
+    }
+
     public CourseCatalog getCourseCatalog() {
         return courseCatalog;
     }
@@ -48,5 +55,30 @@ public class Department {
     public void setCourseCatalog(CourseCatalog courseCatalog) {
         this.courseCatalog = courseCatalog;
     }
+
+    public static int getCount() {
+        return count;
+    }
+
+    public static void setCount(int count) {
+        Department.count = count;
+    }
     
+    
+/*
+    public static int getCount() {
+        return count;
+    }
+
+    public static void setCount(int count) {
+        Department.count = count;
+    }
+    */
+    
+     
+    @Override
+    public String toString(){
+        return this.deptId;
+    }
+     
 }

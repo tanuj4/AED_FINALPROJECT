@@ -7,10 +7,12 @@ package UI.SystemAdminPanel;
 
 import Business.Business;
 import Department.Department;
+import EmployeeProfile.Employee;
 import HODProfile.Hod;
 import UserAccounts.UserAccountDirectory;
 import UserAccounts.UserAccounts;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,18 +26,23 @@ public class EmployeeJPanel extends javax.swing.JPanel {
     
     Business business;
     UserAccounts userAccounts;
+    Department dept;
     UserAccountDirectory userAccountDirectory;
+    DefaultTableModel empTableModel;
 
     public EmployeeJPanel() {
         initComponents();
     }
     
-    public EmployeeJPanel(Business business, UserAccounts userAccount) {
+    public EmployeeJPanel(Business business, UserAccounts userAccount,Department dept) {
         initComponents();
         
         this.business = business;
-        this.userAccounts = userAccounts;
+        this.userAccounts = userAccount;
+        this.dept = dept;
+        this.empTableModel = (DefaultTableModel) empTable.getModel();
         displayDepartment();
+        display();
     }
 
     /**
@@ -48,13 +55,9 @@ public class EmployeeJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        fieldId = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         fieldName = new javax.swing.JTextField();
-        fieldAge = new javax.swing.JTextField();
         fieldExp = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         fieldUser = new javax.swing.JTextField();
@@ -63,38 +66,47 @@ public class EmployeeJPanel extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         deptComboBox = new javax.swing.JComboBox<>();
         createBtn = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        empTable = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 119, 218));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
         jLabel1.setText("Employee");
-
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 12)); // NOI18N
-        jLabel3.setText("Employee ID:");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 17, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 12)); // NOI18N
         jLabel4.setText("Employee Name:");
-
-        jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 12)); // NOI18N
-        jLabel5.setText("Employee Age:");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 12)); // NOI18N
         jLabel6.setText("Employee Expereince:");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, -1, -1));
+        add(fieldName, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 160, 123, -1));
+        add(fieldExp, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, 124, -1));
 
         jLabel7.setFont(new java.awt.Font("Lucida Grande", 1, 12)); // NOI18N
         jLabel7.setText("Username:");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 240, -1, -1));
+        add(fieldUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, 124, -1));
 
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 12)); // NOI18N
         jLabel8.setText("Password:");
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, -1, -1));
 
         fieldPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldPassActionPerformed(evt);
             }
         });
+        add(fieldPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 124, -1));
 
         jLabel9.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel9.setText("Department Name:");
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 116, -1, -1));
+
+        add(deptComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, 123, -1));
 
         createBtn.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         createBtn.setText("Create");
@@ -103,87 +115,27 @@ public class EmployeeJPanel extends javax.swing.JPanel {
                 createBtnActionPerformed(evt);
             }
         });
+        add(createBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(158, 158, 158)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addGap(51, 51, 51))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(jLabel9)
-                                            .addGap(28, 28, 28))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel6)
-                                                .addComponent(jLabel5)
-                                                .addComponent(jLabel4)
-                                                .addComponent(jLabel3))
-                                            .addGap(22, 22, 22)))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(fieldId)
-                                            .addComponent(fieldName)
-                                            .addComponent(fieldAge, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                                            .addComponent(deptComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addComponent(fieldExp, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(fieldUser, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(fieldPass, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(90, 90, 90))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(createBtn)
-                        .addGap(152, 152, 152)))
-                .addContainerGap(803, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(64, 64, 64)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(deptComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(fieldId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(fieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(fieldAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(fieldExp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(fieldUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(fieldPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addComponent(createBtn)
-                .addContainerGap(310, Short.MAX_VALUE))
-        );
+        empTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Department ", "Employer ID", "Name", "Experience"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(empTable);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 420, 300));
     }// </editor-fold>//GEN-END:initComponents
 
     private void fieldPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPassActionPerformed
@@ -198,9 +150,32 @@ public class EmployeeJPanel extends javax.swing.JPanel {
         }
     }
     
+    public void display(){
+        empTableModel.setRowCount(0);
+        for(Employee emp: this.business.getEmployeeDirectory().getEmployeeList()){
+        //UserAccounts u = this.business.getUserAccountDirectory().findHodbyId(hod.getId());
+            
+            
+            Object[] row = new Object[10];
+           
+            //UserAccounts u = this.business.getUserAccountDirectory().findbyId(hod.getId());
+
+            row[0] = emp.getDeptName();
+            row[1] = emp.getEmpId();
+            row[2] = emp.getName();
+            row[3] = emp.getExperience();
+            //row[4] = u.getUsername();
+            //row[5] = u.getPassword();
+            
+            
+            empTableModel.addRow(row);
+            
+        }
+    }
     private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtnActionPerformed
         // TODO add your handling code here:
-         String id =   fieldId.getText();
+        
+        
         String name= fieldName.getText();
         String exp= fieldExp.getText();
         String username = fieldUser.getText();
@@ -208,37 +183,38 @@ public class EmployeeJPanel extends javax.swing.JPanel {
         String deptName = String.valueOf(deptComboBox.getSelectedItem());
         
         UserAccountDirectory userDir = this.business.getUserAccountDirectory();
-        
-        
-        if(userDir.accountExists(username, password, name)){
+
+        if( name.isBlank() ||exp.isBlank()||username.isBlank()||password.isBlank()){
+            JOptionPane.showMessageDialog(null,"Please enter details in all fields");
+        } else
+        if(userDir.accountExists(username, password, "Employer")){
             JOptionPane.showMessageDialog(null, "Account already exists!!!");
         }
         else {
-            UserAccounts user = this.business.getUserAccountDirectory().createUser(username, password, name, deptName);
-           
-            this.business.getFacultyDirectory().createFaculty(name, id, deptName, Double.valueOf(exp));
+            UserAccounts user = this.business.getUserAccountDirectory().createUser(username, password, "Employer", deptName);
+            this.business.getEmployeeDirectory().createEmployee(name, user.getEmployerId(), Double.valueOf(exp), deptName);
             JOptionPane.showMessageDialog(null, "Account Created!!!");
-          //  populate();
+            //populate();
         }
+        
+        display();
     }//GEN-LAST:event_createBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createBtn;
     private javax.swing.JComboBox<String> deptComboBox;
-    private javax.swing.JTextField fieldAge;
+    private javax.swing.JTable empTable;
     private javax.swing.JTextField fieldExp;
-    private javax.swing.JTextField fieldId;
     private javax.swing.JTextField fieldName;
     private javax.swing.JTextField fieldPass;
     private javax.swing.JTextField fieldUser;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,7 @@
 package Role;
 
 import Business.Business;
+import Department.Department;
 import UI.HeadOfDepartment.HeadOfDepartmentJFrame;
 import UI.SystemAdminPanel.SystemAdminJFrame;
 import UserAccounts.UserAccounts;
@@ -16,7 +17,7 @@ import javax.swing.JFrame;
  */
 public class HOD {
     
-    public JFrame createWorkArea(Business business, UserAccounts userAccounts){
-        return new HeadOfDepartmentJFrame(business, userAccounts);
+    public JFrame createWorkArea(Business business, UserAccounts userAccounts,Department dept){
+        return new HeadOfDepartmentJFrame(business, userAccounts,dept);
     }
 }

@@ -33,13 +33,15 @@ public class PostJobsJPanel extends javax.swing.JPanel {
         initComponents();
     }
     
-    public PostJobsJPanel(Business business, UserAccounts userAccounts,Department dept) {
+    public PostJobsJPanel(Business business, UserAccounts userAccounts, Department dept) {
         initComponents();
         
         this.business = business;
         this.userAccounts = userAccounts;
         this.dept = dept;
         this.jobTableModel = (DefaultTableModel) jobTable.getModel();
+        
+        displayJobs();
     }
 
     /**
@@ -62,7 +64,11 @@ public class PostJobsJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jobTable = new javax.swing.JTable();
         fieldJobDesc = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        postJobBtn = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        statusComboBox = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        positionComboBox = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(186, 160, 191));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -88,17 +94,17 @@ public class PostJobsJPanel extends javax.swing.JPanel {
 
         jobTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Department", "Employer", "Job ID", "Job Role", "Price/hour", "Job Status", "Job Description"
+                "Department", "Employer", "Job ID", "Job Role", "Price/hour", "Job Status", "Job Description", "Job Position"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -107,38 +113,59 @@ public class PostJobsJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jobTable);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 90, 470, 210));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 90, 530, 250));
         add(fieldJobDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, 100, -1));
 
-        jButton1.setText("Post Job");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        postJobBtn.setText("Post Job");
+        postJobBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                postJobBtnActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 360, -1, -1));
+        add(postJobBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 410, -1, -1));
+
+        jLabel6.setText("Job Status:");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, -1, -1));
+
+        statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Open", "Closed" }));
+        add(statusComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 100, -1));
+
+        jLabel7.setText("Job Position:");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, -1, -1));
+
+        positionComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fresher", "Team Lead", "Head ", " " }));
+        add(positionComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 330, 100, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void postJobBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_postJobBtnActionPerformed
         // TODO add your handling code here:
         
         String jobId = fieldJobId.getText();
         String jobName = fieldJobName.getText();
         String jobDesc = fieldJobDesc.getText();
         String jobPrice = fieldPrice.getText();
-        
+        String jobStatus =  (String) statusComboBox.getSelectedItem();
+        String jobposition =  (String) positionComboBox.getSelectedItem();
+        Boolean jobStatusFlag;
+        if(jobStatus == "Open")
+        {
+            jobStatusFlag = true;
+        }
+        else {
+            jobStatusFlag = false;
+        }
         
         EmploymentDirectory jobReq = this.business.getJobRequestDirectory();
         Employment emp = new Employment();
         
-        jobReq.createJobs(jobId, jobName, userAccounts.getDeptName() ,userAccounts.getAccountId(), "Open" ,Double.valueOf(jobPrice),jobDesc,"Open");
+        jobReq.createJobs(jobId, jobName, userAccounts.getDeptName() ,userAccounts.getEmployerId(), jobStatusFlag ,Double.valueOf(jobPrice),jobDesc,"Open",jobposition);
         displayJobs();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_postJobBtnActionPerformed
 
     public void displayJobs(){
         ArrayList<Employment> emps = this.business.getJobRequestDirectory().getEmploymentList();
         
-        if(emps.size()>0){
+        if(emps.size()>0){ 
             jobTableModel.setRowCount(0);
             
             for(Employment e: emps){
@@ -152,7 +179,7 @@ public class PostJobsJPanel extends javax.swing.JPanel {
                 row[4] = e.getJobPrice();
                 row[5] = e.getStatus();
                 row[6] = e.getJobDesc();
-
+                row[7] = e.getJobPosition();
                 jobTableModel.addRow(row);
             }
           }
@@ -164,13 +191,17 @@ public class PostJobsJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField fieldJobId;
     private javax.swing.JTextField fieldJobName;
     private javax.swing.JTextField fieldPrice;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jobTable;
+    private javax.swing.JComboBox<String> positionComboBox;
+    private javax.swing.JButton postJobBtn;
+    private javax.swing.JComboBox<String> statusComboBox;
     // End of variables declaration//GEN-END:variables
 }

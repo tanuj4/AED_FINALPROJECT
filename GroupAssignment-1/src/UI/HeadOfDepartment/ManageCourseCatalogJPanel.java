@@ -25,6 +25,7 @@ public class ManageCourseCatalogJPanel extends javax.swing.JPanel {
     
     Business business;
     UserAccounts userAccounts;
+    Department dept;
     DefaultTableModel viewTableModel;
     Course selectedCourse;
         
@@ -33,11 +34,12 @@ public class ManageCourseCatalogJPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    ManageCourseCatalogJPanel(Business business, UserAccounts userAccounts) {
+    ManageCourseCatalogJPanel(Business business, UserAccounts userAccounts,Department dept) {
         initComponents();
         this.setVisible(true);
         this.business = business;
         this.userAccounts = userAccounts;
+        this.dept = dept;
         this.viewTableModel = (DefaultTableModel) courseCatalogTable.getModel();
         
         displayCourseCatalog();

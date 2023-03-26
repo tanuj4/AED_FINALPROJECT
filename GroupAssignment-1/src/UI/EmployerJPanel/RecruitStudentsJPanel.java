@@ -7,9 +7,11 @@ package UI.EmployerJPanel;
 import Business.Business;
 import Department.Department;
 import Employment.Employment;
+import StudentJobQueue.StudentJob;
 import UserAccounts.UserAccountDirectory;
 import UserAccounts.UserAccounts;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,6 +28,7 @@ public class RecruitStudentsJPanel extends javax.swing.JPanel {
     UserAccounts userAccounts;
     UserAccountDirectory userAccountDirectory;
     Department dept;
+    Employment emp;
     DefaultTableModel jobTableModel;
     
 
@@ -39,27 +42,28 @@ public class RecruitStudentsJPanel extends javax.swing.JPanel {
         this.business = business;
         this.userAccounts = userAccount;
         this.dept = dept;
+        this.emp = new Employment();
         this.jobTableModel = (DefaultTableModel) jobTable.getModel();
         
         display();
     }
 
     public void display(){
-        ArrayList<Employment> jobs = this.business.getJobRequestDirectory().getEmploymentList();
-        
+        ArrayList<StudentJob> jobs = this.business.getStudentJobDirectory().getStudentJobDirectory();
+        jobTableModel.setRowCount(0);
         if(jobs.size()>0){
-            for(Employment e: jobs){
-                if(e.getDeptName().equals(userAccounts.getDeptName())){
+            for(StudentJob s: jobs){
+                if(s.getDeptName().equals(userAccounts.getDeptName())){
                     Object row[] = new Object[15];
-                    row[0] = e;
-                    row[1] = e.getStudentId();
-                    row[2] = e.getEmploymentId();
-                    row[3] = e.getRole();
-                    row[4] = e.getJobPrice();
-                    row[5] = e.getJobDesc();
-                    row[6] = e.getStatus();
-                    row[7] = e.getBackendStatus();
-                    
+                    row[0] = s;
+                    row[1] = s.getStudentid();
+                    row[2] = s.getEmployerName();
+                    row[3] = s.getJobStatus();
+                    row[4] = s.getJobId();
+                    row[5] = s.getJobRole();
+                    row[6] = s.getDeptName();
+                    row[7] = s.getApplicationStatus();
+
                     jobTableModel.addRow(row);
                 }
             }
@@ -90,11 +94,11 @@ public class RecruitStudentsJPanel extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Department", "Student", "Job ID", "Job Role", "Job Price", "Job Description", "Job Status", "Student Status"
+                "Application ID", "Student ID", "Employer ", "Job Status", "Job Id", "Job Role", "Department", "Application Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -106,8 +110,18 @@ public class RecruitStudentsJPanel extends javax.swing.JPanel {
         jLabel1.setText("Recruit Students for Job");
 
         acceptBtn.setText("Accept");
+        acceptBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acceptBtnActionPerformed(evt);
+            }
+        });
 
         rejectBtn.setText("Reject");
+        rejectBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rejectBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -115,25 +129,23 @@ public class RecruitStudentsJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 905, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(397, 397, 397)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(210, 210, 210)
+                        .addGap(326, 326, 326)
                         .addComponent(acceptBtn)
                         .addGap(164, 164, 164)
-                        .addComponent(rejectBtn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(311, 311, 311)
-                        .addComponent(jLabel1)))
-                .addContainerGap(63, Short.MAX_VALUE))
+                        .addComponent(rejectBtn)))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(32, 32, 32)
                 .addComponent(jLabel1)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -142,6 +154,102 @@ public class RecruitStudentsJPanel extends javax.swing.JPanel {
                 .addContainerGap(46, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void acceptBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptBtnActionPerformed
+        // TODO add your handling code here:
+        
+        /*
+        int selectedRow = rentTable.getSelectedRow();
+        
+        RentalRequest r = (RentalRequest) rentTable.getValueAt(selectedRow, 0);
+        if(r.getStatus().equals("Requested")){
+            r.setStatus("Accept"); 
+            r.getBook().setIsAvailable("no");
+        } else {
+            JOptionPane.showMessageDialog(null, "No rental request has been raised!!");
+        }
+                  
+        display();
+        
+        
+        int selectedRow = jobTable.getSelectedRow();
+        
+        StudentJob s = (StudentJob) jobTable.getValueAt(selectedRow, 0);
+        
+        
+        if(s.getApplicationStatus().equals("Applied")){
+            s.setApplicationStatus("Accepted");
+            //s.getEmployment().setStatus("Closed");
+            //this.emp.setStatus("Closed");
+        } else {
+             JOptionPane.showMessageDialog(null, "No job has been applied to!!");
+        }
+        
+        display();
+        */
+        
+        int selectedRow = jobTable.getSelectedRow();
+        if(selectedRow>=0){
+            String selectedJobId = jobTable.getValueAt(selectedRow, 4).toString();
+            //ArrayList<StudentJob> studentJobList = this.business.getStudentJobDirectory().getStudentJobDirectory();
+            ArrayList<Employment> empList = this.business.getJobRequestDirectory().getEmploymentList();
+            for(int i=0; i<empList.size();i++){
+                String jobId = empList.get(i).getStudentJobs().getJobId();
+                
+                if(jobId == selectedJobId){
+                    Employment emp = empList.get(i);
+                    emp.setStatus(false);
+                    StudentJob sj = emp.getStudentJobs();
+                    sj.setApplicationStatus("Accepted");
+                    emp.setStudentJobs(sj);
+                    this.business.getStudentJobDirectory().updateJobStatus(this.userAccounts.getEmployerId(), sj);
+                }
+            }
+            JOptionPane.showMessageDialog(null, "Accepted");
+        }
+        
+        
+        display();
+    }//GEN-LAST:event_acceptBtnActionPerformed
+
+    private void rejectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectBtnActionPerformed
+        // TODO add your handling code here:
+        /*
+        int selectedRow = jobTable.getSelectedRow();
+        
+        StudentJob s = (StudentJob) jobTable.getValueAt(selectedRow, 0);
+        
+        
+        if(s.getApplicationStatus().equals("Applied")){
+            s.setApplicationStatus("Rejected");
+        } else {
+             JOptionPane.showMessageDialog(null, "No job has been applied to!!");
+        }
+        */
+        
+        int selectedRow = jobTable.getSelectedRow();
+        if(selectedRow>=0){
+            String selectedJobId = jobTable.getValueAt(selectedRow, 4).toString();
+            //ArrayList<StudentJob> studentJobList = this.business.getStudentJobDirectory().getStudentJobDirectory();
+            ArrayList<Employment> empList = this.business.getJobRequestDirectory().getEmploymentList();
+            for(int i=0; i<empList.size();i++){
+                String jobId = empList.get(i).getStudentJobs().getJobId();
+                
+                if(jobId == selectedJobId){
+                    Employment emp = empList.get(i);
+                    emp.setStatus(true);
+                    StudentJob sj = emp.getStudentJobs();
+                    sj.setApplicationStatus("Rejected");
+                    emp.setStudentJobs(sj);
+                    this.business.getStudentJobDirectory().updateJobStatus(this.userAccounts.getEmployerId(), sj);
+                }
+            }
+            JOptionPane.showMessageDialog(null, "Accepted");
+        }
+        
+        
+        display();
+    }//GEN-LAST:event_rejectBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

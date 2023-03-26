@@ -7,6 +7,7 @@ package UI.SystemAdminPanel;
 import Business.Business;
 import Department.Department;
 import HODProfile.Hod;
+import Role.HOD;
 import UserAccounts.UserAccountDirectory;
 import UserAccounts.UserAccounts;
 import javax.swing.JOptionPane;
@@ -24,18 +25,25 @@ public class HodJPanel extends javax.swing.JPanel {
     Business business;
     UserAccounts userAccounts;
     UserAccountDirectory userAccountDirectory;
+    DefaultTableModel HodTableModel;
+    Department dept;
+    Hod hod;
 
     
     public HodJPanel() {
         initComponents();
     }
     
-     public HodJPanel(Business business, UserAccounts userAccounts) {
+     public HodJPanel(Business business, UserAccounts userAccounts,Department dept) {
          initComponents();
         this.business = business;
         this.userAccounts = userAccounts;
+        this.dept = dept;
+        this.HodTableModel = (DefaultTableModel) HodTable.getModel();
         
         displayDepartment();
+        displayHod();
+     
       }
 
    
@@ -54,19 +62,18 @@ public class HodJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        deptComboBox = new javax.swing.JComboBox<>();
+        deptComboBox = new javax.swing.JComboBox();
         fieldName = new javax.swing.JTextField();
-        fieldId = new javax.swing.JTextField();
         fieldExp = new javax.swing.JTextField();
         fieldUser = new javax.swing.JTextField();
         fieldPass = new javax.swing.JTextField();
         createBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         HodTable = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(135, 219, 220));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -83,28 +90,23 @@ public class HodJPanel extends javax.swing.JPanel {
         jLabel3.setText("HOD Name:");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 129, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabel4.setText("HOD ID:");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 176, -1, -1));
-
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel5.setText("HOD Experience:");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 227, -1, -1));
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel6.setText("UserName;");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 266, -1, -1));
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel7.setText("Password:");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 311, -1, -1));
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, -1));
 
         add(deptComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 79, 147, -1));
         add(fieldName, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 124, 147, -1));
-        add(fieldId, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 176, 147, -1));
-        add(fieldExp, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 222, 147, -1));
-        add(fieldUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 261, 147, -1));
-        add(fieldPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 306, 147, -1));
+        add(fieldExp, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 147, -1));
+        add(fieldUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 147, -1));
+        add(fieldPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 147, -1));
 
         createBtn.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         createBtn.setText("Create");
@@ -113,21 +115,18 @@ public class HodJPanel extends javax.swing.JPanel {
                 createBtnActionPerformed(evt);
             }
         });
-        add(createBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 359, -1, -1));
+        add(createBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 300, -1, -1));
 
         HodTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "Department Name", "HOD Name", "Hod ID", "HOD Experience", "Username", "Password"
+                "Department Name", "HOD Name", "Hod ID", "HOD Experience"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -136,7 +135,16 @@ public class HodJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(HodTable);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 670, 410));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 600, 320));
+
+        jButton1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jButton1.setText("Delete");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 410, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
      public void displayDepartment(){
@@ -149,27 +157,68 @@ public class HodJPanel extends javax.swing.JPanel {
                 
     private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtnActionPerformed
         String name = fieldName.getText();
-        String id =   fieldId.getText();
         String exp= fieldExp.getText();
         String username = fieldUser.getText();
         String password = fieldPass.getText();
         String deptName = String.valueOf(deptComboBox.getSelectedItem());
         
         UserAccountDirectory userDir = this.business.getUserAccountDirectory();
-        
-        
-        if(userDir.accountExists(username, password, name)){
-            
+          
+        if( name.isBlank() ||exp.isBlank()||username.isBlank()||password.isBlank()){
+            JOptionPane.showMessageDialog(null,"Please enter details in all fields");
+        } else
+        if(userDir.accountExists(username, password, "Department HOD")){
             JOptionPane.showMessageDialog(null, "Account already exists!!!");
-        }
-        else {
-            UserAccounts user = this.business.getUserAccountDirectory().createUser(username, password, "Department HOD", deptName);
-            this.business.getHodDirectory().createHod(name, id, userAccounts.getDeptName(), Double.valueOf(exp));
+        } else {
+                  UserAccounts user = this.business.getUserAccountDirectory().createUser(username, password, "Department HOD", deptName);
+            this.business.getHodDirectory().createHod(name, user.getHodId(), user.getDeptName(), Double.valueOf(exp));
               JOptionPane.showMessageDialog(null, "Account Created!!!");
-          //  populate();
         }
+        displayHod();
+        
+        
     }//GEN-LAST:event_createBtnActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+       int selectedRow  =  HodTable.getSelectedRow();
+        
+        if(selectedRow >= 0){
+            //delete the object
+            this.hod = (Hod) HodTable.getValueAt(selectedRow,0);
+           this.business.getHodDirectory().deletehod(hod.getId());
+
+        }
+        displayHod();
+        
+            
+    }//GEN-LAST:event_jButton1ActionPerformed
+   
+      
+     public void displayHod(){
+        
+       HodTableModel.setRowCount(0);
+        for(Hod hod: this.business.getHodDirectory().getHodList()){
+        //UserAccounts u = this.business.getUserAccountDirectory().findHodbyId(hod.getId());
+            
+            
+            Object[] row = new Object[10];
+           
+            //UserAccounts u = this.business.getUserAccountDirectory().findbyId(hod.getId());
+
+            row[0] = hod;
+            row[1] = hod.getName();
+            row[2] = hod.getId();
+            row[3] = hod.getExperience();
+            //row[4] = u.getUsername();
+            //row[5] = u.getPassword();
+            
+            
+            HodTableModel.addRow(row);
+            
+        }
+     }
+    
     
     
     
@@ -178,16 +227,15 @@ public class HodJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable HodTable;
     private javax.swing.JButton createBtn;
-    private javax.swing.JComboBox<String> deptComboBox;
+    private javax.swing.JComboBox deptComboBox;
     private javax.swing.JTextField fieldExp;
-    private javax.swing.JTextField fieldId;
     private javax.swing.JTextField fieldName;
     private javax.swing.JTextField fieldPass;
     private javax.swing.JTextField fieldUser;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

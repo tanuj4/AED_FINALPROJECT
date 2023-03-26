@@ -4,6 +4,7 @@
  */
 package Student;
 
+import Department.Department;
 import java.util.ArrayList;
 
 /**
@@ -27,13 +28,15 @@ public class StudentDirectory {
     
     //METHODS
     
-    public Student createStudent(String id, String name, String deptName, Boolean empStatus){
+    public Student createStudent(String id, String name, String deptName){
         Student student = new Student();
         
         student.setId(id);
         student.setName(name);
         student.setDeptName(deptName);
-        student.setEmploymentStatus(empStatus);
+        
+        student.setApplicationStatus(null);
+        student.setStudentEmployment(null);
         
         this.studentList.add(student);
         return student;
@@ -46,5 +49,14 @@ public class StudentDirectory {
             }
         }
         return null;
+    }
+     public void deleteStudent(String id){
+        for(Student stud : this.studentList){
+            if(stud.getId()==id){
+                this.studentList.remove(stud);
+                break;
+            }
+        }
+    
     }
 }

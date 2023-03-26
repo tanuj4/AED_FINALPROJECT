@@ -35,7 +35,7 @@ public class EmployerJFrame extends javax.swing.JFrame {
         this.userAccounts = userAccounts;
         this.dept = dept;
         
-        empLabel.setText(userAccounts.getAccountId());
+        empLabel.setText(userAccounts.getEmployerId());
     }
 
     /**
@@ -52,9 +52,9 @@ public class EmployerJFrame extends javax.swing.JFrame {
         logoutBtn = new javax.swing.JButton();
         postJobsBtn = new javax.swing.JButton();
         recruitStudentsBtn = new javax.swing.JButton();
-        feedbackBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         empLabel = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -76,7 +76,7 @@ public class EmployerJFrame extends javax.swing.JFrame {
                 postJobsBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(postJobsBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 120, 141, -1));
+        jPanel1.add(postJobsBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 141, -1));
 
         recruitStudentsBtn.setText("Recruit Job Candidate");
         recruitStudentsBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -84,20 +84,20 @@ public class EmployerJFrame extends javax.swing.JFrame {
                 recruitStudentsBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(recruitStudentsBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 177, -1, -1));
-
-        feedbackBtn.setText("Provide Feedback");
-        feedbackBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                feedbackBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(feedbackBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 235, 141, -1));
+        jPanel1.add(recruitStudentsBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Employer ID:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 68, -1, -1));
         jPanel1.add(empLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 68, 88, 16));
+
+        jButton1.setText("Promote");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, -1));
 
         jSplitPane1.setLeftComponent(jPanel1);
 
@@ -122,7 +122,7 @@ public class EmployerJFrame extends javax.swing.JFrame {
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        MainJFrame main = new MainJFrame(this.business,this.userAccounts);
+        MainJFrame main = new MainJFrame(this.business,this.userAccounts, this.dept);
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void postJobsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_postJobsBtnActionPerformed
@@ -135,10 +135,10 @@ public class EmployerJFrame extends javax.swing.JFrame {
         jSplitPane1.setRightComponent(new RecruitStudentsJPanel(this.business,this.userAccounts, this.dept));
     }//GEN-LAST:event_recruitStudentsBtnActionPerformed
 
-    private void feedbackBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_feedbackBtnActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-         jSplitPane1.setRightComponent(new FeedbackJPanel(this.business,this.userAccounts, this.dept));
-    }//GEN-LAST:event_feedbackBtnActionPerformed
+        jSplitPane1.setRightComponent(new PromotionJPanel(this.business,this.userAccounts, this.dept));
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,7 +177,7 @@ public class EmployerJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel empLabel;
-    private javax.swing.JButton feedbackBtn;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

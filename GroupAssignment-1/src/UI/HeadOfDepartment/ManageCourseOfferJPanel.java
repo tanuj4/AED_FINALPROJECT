@@ -27,6 +27,7 @@ public class ManageCourseOfferJPanel extends javax.swing.JPanel {
     
     Business business;
     UserAccounts userAccounts;
+    Department dept;
     DefaultTableModel viewTableModel;
     Course selectedCourse;
     
@@ -34,11 +35,12 @@ public class ManageCourseOfferJPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    ManageCourseOfferJPanel(Business business, UserAccounts userAccounts) {
+    ManageCourseOfferJPanel(Business business, UserAccounts userAccounts,Department dept) {
         initComponents();
         this.setVisible(true);
         this.business = business;
         this.userAccounts = userAccounts;
+        this.dept = dept;
         populateComboBoxes();
         populateCourseFields();
         this.viewTableModel = (DefaultTableModel) courseOffer.getModel();
@@ -166,7 +168,7 @@ public class ManageCourseOfferJPanel extends javax.swing.JPanel {
             }
         });
         String facultyName = (String) facultyComboBox.getSelectedItem();
-
+        
         
         c.getFaculty().setName(facultyName);
         displayCourseFacultyTable();

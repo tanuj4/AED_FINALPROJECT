@@ -7,10 +7,13 @@ package UI.SystemAdminPanel;
 
 import Business.Business;
 import Department.Department;
+import FacultyProfile.Faculty;
 import HODProfile.Hod;
+import Student.Student;
 import UserAccounts.UserAccountDirectory;
 import UserAccounts.UserAccounts;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,19 +27,23 @@ public class StudentJPanel extends javax.swing.JPanel {
     Business business;
     Hod hod;
     UserAccounts userAccounts;
+    Department dept;
     UserAccountDirectory userAccountDirectory;
-
+     DefaultTableModel StudentTableModel;
+     Student stud;
     public StudentJPanel() {
         initComponents();
     }
     
-    public StudentJPanel(Business business, UserAccounts userAccounts) {
+    public StudentJPanel(Business business, UserAccounts userAccounts,Department dept) {
         initComponents();
         
         this.business = business;
         this.userAccounts = userAccounts;
-        
+        this.dept = dept;
+         this.StudentTableModel = (DefaultTableModel) studTable.getModel();
         displayDepartment();
+        displayStudent();
     }
 
     /**
@@ -50,18 +57,17 @@ public class StudentJPanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        deptComboBox = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
+        deptComboBox = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        fieldId = new javax.swing.JTextField();
         fieldName = new javax.swing.JTextField();
-        fieldAge = new javax.swing.JTextField();
         fieldUserName = new javax.swing.JTextField();
         fieldPassword = new javax.swing.JTextField();
         createBtn = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        studTable = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(2, 128, 255));
 
@@ -71,14 +77,8 @@ public class StudentJPanel extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel2.setText("Department Name:");
 
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabel3.setText("Student ID:");
-
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel4.setText("Student Name:");
-
-        jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabel5.setText("Student Age:");
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel6.setText("Username:");
@@ -86,17 +86,36 @@ public class StudentJPanel extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel7.setText("Password:");
 
-        fieldId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldIdActionPerformed(evt);
-            }
-        });
-
         createBtn.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         createBtn.setText("Create");
         createBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createBtnActionPerformed(evt);
+            }
+        });
+
+        studTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Department Name", "Student ID", "Student Name"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(studTable);
+
+        jButton1.setText("Delete");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -113,9 +132,7 @@ public class StudentJPanel extends javax.swing.JPanel {
                         .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7))
                         .addGap(30, 30, 30)
@@ -123,12 +140,16 @@ public class StudentJPanel extends javax.swing.JPanel {
                             .addComponent(createBtn)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(deptComboBox, 0, 122, Short.MAX_VALUE)
-                                .addComponent(fieldId)
                                 .addComponent(fieldName)
-                                .addComponent(fieldAge)
                                 .addComponent(fieldUserName)
-                                .addComponent(fieldPassword)))))
-                .addContainerGap(238, Short.MAX_VALUE))
+                                .addComponent(fieldPassword)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(295, 295, 295))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,40 +157,32 @@ public class StudentJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(deptComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(fieldId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(fieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(fieldAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(fieldUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(fieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addComponent(createBtn)
-                .addContainerGap(176, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(deptComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(fieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(fieldUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(fieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
+                        .addComponent(createBtn))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(129, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void fieldIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldIdActionPerformed
-
-    
+  
     public void displayDepartment(){
       deptComboBox.removeAllItems();
         for(Department a: this.business.getDepartmentDirectory().getDepartmentList()){
@@ -177,12 +190,12 @@ public class StudentJPanel extends javax.swing.JPanel {
         }
     }
     
+        
     private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtnActionPerformed
         // TODO add your handling code here:
         
-        String id =   fieldId.getText();
-        String name= fieldName.getText();
-        String age = fieldAge.getText();
+        
+        String name= fieldName.getText();        
         String username = fieldUserName.getText();
         String password = fieldPassword.getText();
         String deptName = String.valueOf(deptComboBox.getSelectedItem());
@@ -190,32 +203,70 @@ public class StudentJPanel extends javax.swing.JPanel {
         UserAccountDirectory userDir = this.business.getUserAccountDirectory();
         
         
-        if(userDir.accountExists(username, password, name)){
+         
+        if( name.isBlank() ||username.isBlank()||password.isBlank()){
+            JOptionPane.showMessageDialog(null,"Please enter details in all fields");
+        } else
+        if(userDir.accountExists(username, password, "Student")){
             JOptionPane.showMessageDialog(null, "Account already exists!!!");
-        }
-        else {
-            UserAccounts user = this.business.getUserAccountDirectory().createUser(username, password, name, deptName);
-            this.business.getStudentDirectory().createStudent(id, name, deptName, false);
+        }else {
+            UserAccounts user = this.business.getUserAccountDirectory().createUser(username, password, "Student", deptName);
+            this.business.getStudentDirectory().createStudent(user.getStudentId(), name, deptName);
             JOptionPane.showMessageDialog(null, "Account Created!!!");
-          //  populate();
         }
+        displayStudent();
     }//GEN-LAST:event_createBtnActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+         int selectedRow  =  studTable.getSelectedRow();
+        
+        if(selectedRow >= 0){
+            //delete the object
+            this.stud = (Student) studTable.getValueAt(selectedRow,0);
+            this.business.getStudentDirectory().deleteStudent(stud.getId());
+
+        }
+        displayStudent();
+    }//GEN-LAST:event_jButton1ActionPerformed
+ 
+     public void displayStudent(){
+        
+       StudentTableModel.setRowCount(0);
+        for(Student stud: this.business.getStudentDirectory().getStudentList()){
+        //UserAccounts u = this.business.getUserAccountDirectory().findStudentbyId(stud.getId());
+            
+            
+            Object[] row = new Object[10];
+           
+            //UserAccounts u = this.business.getUserAccountDirectory().findbyId(hod.getId());
+
+            row[0] = stud.getDeptName();
+            row[1] = stud.getId();
+            row[2] = stud.getName();
+
+            
+            
+            StudentTableModel.addRow(row);
+            
+        }
+     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createBtn;
-    private javax.swing.JComboBox<String> deptComboBox;
-    private javax.swing.JTextField fieldAge;
-    private javax.swing.JTextField fieldId;
+    private javax.swing.JComboBox deptComboBox;
     private javax.swing.JTextField fieldName;
     private javax.swing.JTextField fieldPassword;
     private javax.swing.JTextField fieldUserName;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable studTable;
     // End of variables declaration//GEN-END:variables
 }

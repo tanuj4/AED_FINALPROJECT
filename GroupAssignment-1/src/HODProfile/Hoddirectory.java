@@ -4,7 +4,9 @@
  */
 package HODProfile;
 
+import Department.Department;
 import FacultyProfile.Faculty;
+import Role.HOD;
 import java.util.ArrayList;
 
 /**
@@ -32,12 +34,21 @@ public class Hoddirectory {
         Hod hod = new Hod();
 
         hod.setName(name);
-        hod.setId(departmentName);
+        hod.setId(id);
         hod.setDepartmentName(departmentName);
         hod.setExperience(experience);
 
         this.HodList.add(hod);
         return hod;
+    }
+      public void deletehod(String id){
+        for(Hod h : this.HodList){
+            if(h.getId()==id){
+                this.HodList.remove(h);
+                break;
+            }
+        }
+    
     }
 
 }

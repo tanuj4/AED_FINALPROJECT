@@ -24,6 +24,7 @@ public class ManageCourseScheduleJPanel extends javax.swing.JPanel {
     
     Business business;
     UserAccounts userAccounts;
+    Department dept;
     DefaultTableModel viewTableModel;
     Course selectedCourse;
     /**
@@ -33,11 +34,12 @@ public class ManageCourseScheduleJPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    ManageCourseScheduleJPanel(Business business, UserAccounts userAccounts) {
+    ManageCourseScheduleJPanel(Business business, UserAccounts userAccounts,Department dept) {
         initComponents();
         this.setVisible(true);
         this.business = business;
         this.userAccounts = userAccounts;
+        this.dept = dept;
         this.viewTableModel = (DefaultTableModel) courseSchedule.getModel();
         populateComboBoxes();
         displayCourseTable();

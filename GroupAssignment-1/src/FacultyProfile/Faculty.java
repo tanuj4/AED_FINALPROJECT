@@ -17,8 +17,13 @@ public class Faculty extends Person {
     Double experience;
     UserAccounts userAccounts;
     UserAccountDirectory userAccountDirectory;
+    private static int count=0;
 
     public Faculty() {
+        this.departmentName = departmentName;
+        this.experience = experience;
+        this.userAccountDirectory = new UserAccountDirectory();
+        this.userAccounts = new UserAccounts();
     }
 
     public UserAccounts getUserAccounts() {
@@ -54,6 +59,8 @@ public class Faculty extends Person {
         this.experience = experience;
     }
     
-    
-    
+    @Override
+    public String toString(){
+        return this.departmentName;
+    }
 }
